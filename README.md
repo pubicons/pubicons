@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/c4e2fbb3-02a9-49ac-86de-74751fb2f89a">
-  <h1>Node With Typescript</h1>
-  <span>This is template that is simple start-kit about Preact in Node with Typescript.</span><br>
-  <a href="https://github.com/MTtankkeo/typescript-preact-webpack">Go to related Preact.ts template</a>
+  <img src="https://github.com/user-attachments/assets/d830bef4-9101-44bd-b0ba-a609f9ec9c88">
+  <h1>PUBICONS</h1>
+  <span>This is project that is simply publishing icons website by developing as Preact and Node with Typescript.</span><br>
+  <a href="https://pubicons.com">Go to document for details about API</a>
 </div>
 
-> [!IMPORTANT]
-> Sorry, i'm developing about this template (start-kit).
+> [!NOTE]
+> > Sorry, i'm developing about this project (2024-11-07).
