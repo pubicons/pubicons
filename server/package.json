@@ -2,8 +2,8 @@
   "scripts": {
     "serve": "npm run build & npm run start",
     "start": "ts-node src/index.ts",
-    "build": "cd ../client & npm i & npm run build",
-    "watch": "nodemon --watch src/**/* --ext ts"
+    "watch": "nodemon --watch src/**/* --ext ts",
+    "alive": "docker compose up"
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.4",
