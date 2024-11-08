@@ -27,13 +27,13 @@ export const SIGN_UP_HTTP_HANDLER = new HTTPHandler({
 
         if (given.email && given.password && given.alias) {
             if (await User.existsEmail(given.email)) {
-                response.writeHead(400);
+                response.writeHead(409);
                 response.end(SignUpException.ALREADY_EXISTS_EMAIL);
                 return;
             }
 
             if (await User.existsAlias(given.alias)) {
-                response.writeHead(400);
+                response.writeHead(409);
                 response.end(SignUpException.ALREADY_EXISTS_ALIAS);
                 return;
             }

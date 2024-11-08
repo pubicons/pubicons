@@ -50,13 +50,13 @@ export const SIGN_UP_AUTH_HTTP_HANDLER = new HTTPHandler({
 
         if (requestData.numbers == authRequest.numbers) {
             if (await User.existsEmail(authRequest.email)) {
-                response.writeHead(400);
+                response.writeHead(409);
                 response.end(SignUpException.ALREADY_EXISTS_EMAIL);
                 return;
             }
 
             if (await User.existsAlias(authRequest.alias)) {
-                response.writeHead(400);
+                response.writeHead(409);
                 response.end(SignUpException.ALREADY_EXISTS_ALIAS);
                 return;
             }
