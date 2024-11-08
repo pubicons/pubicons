@@ -15,7 +15,7 @@ services:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 1s
       timeout: 1s
-      retries: 30 # 재시도 30s
+      retries: 30 # retry 30s
 
   redis:
     container_name: Redis
@@ -29,9 +29,9 @@ services:
 
   liquibase:
     container_name: PostgreSQL-Liquibase
-    image: liquibase/liquibase:4.29
+    image: liquibase/liquibase:4.30
     depends_on:
-      postgres: # PostgreSQL이 모두 로드된 이후 Liquibase를 시작하도록 설정합니다.
+      postgres: # Loaded after related DB initialized all.
         condition: service_healthy
     volumes:
       - ./liquibase/changelog:/liquibase/changelog

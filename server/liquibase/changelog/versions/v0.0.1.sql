@@ -41,6 +41,8 @@ CREATE INDEX "indexCreatedAt" ON "User"("createdAt");
 CREATE TABLE "UserDetails"(
     "id" UUID NOT NULL,
     "displayName" VARCHAR(64),
+    "bookmarkedIcons" JSON NOT NULL DEFAULT '[]',
+    "downloadedIcons" JSON NOT NULL DEFAULT '[]',
     "profileColor" RGB NOT NULL DEFAULT random_rgb(100, 255),
     "profileImage" URL,
     FOREIGN KEY("id") REFERENCES "User"("id") ON DELETE CASCADE
