@@ -24,7 +24,8 @@
     "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
-    "preact": "^10.23.2",
-    "wouter": "^3.3.5"
+    "@web-package/react-widgets": "^1.0.0-beta8",
+    "@web-package/react-widgets-router": "^1.0.0-beta4",
+    "preact": "^10.23.2"
   }
 }

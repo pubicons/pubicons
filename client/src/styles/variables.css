@@ -1,5 +1,11 @@
 
 :root {
+    --primary: #1e69da;
+    --primary-hover: #185abc;
     --background: white;
+    --rearground: rgb(240, 243, 246);
+    --rearground-border: rgb(220, 223, 226);
     --foreground: black;
+    --foreground2: rgb(50, 50, 50);
+    --foreground3: rgb(100, 100, 100);
 }
