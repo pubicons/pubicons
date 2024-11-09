@@ -9,3 +9,12 @@
     --foreground2: rgb(50, 50, 50);
     --foreground3: rgb(100, 100, 100);
 }
+
+.dark {
+    --background: black;
+    --rearground: rgb(30, 31, 33);
+    --rearground-border: rgb(60, 61, 63);
+    --foreground: white;
+    --foreground2: rgb(150, 150, 150);
+    --foreground3: rgb(100, 100, 100);
+}
