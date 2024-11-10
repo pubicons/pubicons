@@ -5,7 +5,7 @@ button.primary {
     border-radius: 1e10px;
     padding: 10px 15px;
     transition-property: background-color;
-    transition-duration: 0.3s;
+    transition-duration: 0.2s;
 }
 button.primary:hover {
     background-color: var(--primary-hover);
@@ -16,7 +16,7 @@ button.secondary {
     border-radius: 15px;
     padding: 10px 15px;
     transition-property: background-color;
-    transition-duration: 0.3s;
+    transition-duration: 0.2s;
 }
 button.secondary:hover {
     background-color: var(--rearground);
@@ -29,9 +29,20 @@ button.tertiary {
     border-radius: 1e10px;
     border: 2px solid transparent;
     transition-property: border-color;
-    transition-duration: 0.3s;
+    transition-duration: 0.2s;
 }
 button.tertiary:hover {
     border-color: var(--primary);
     cursor: pointer;
 }
+
+input.area {
+    padding: 15px;
+    background-color: var(--rearground-in-background);
+    border: 2px solid var(--rearground-border);
+    border-radius: 10px;
+    transition-property: border-color;
+    transition-duration: 0.2s;
+}
+input.area:hover { border-color: var(--foreground3); }
+input.area:focus { border-color: var(--foreground); }

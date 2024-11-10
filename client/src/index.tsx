@@ -6,4 +6,6 @@ import "./styles/font";
 import "./styles/variables";
 import "./styles/templates";
 
+import "web-touch-ripple";
+
 render(<App />, document.body);

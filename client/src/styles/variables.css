@@ -5,16 +5,28 @@
     --background: white;
     --rearground: rgb(240, 243, 246);
     --rearground-border: rgb(220, 223, 226);
+    --rearground-in-background: white;
     --foreground: black;
     --foreground2: rgb(50, 50, 50);
     --foreground3: rgb(100, 100, 100);
 }
 
+:root {
+    --padding-sm: 10px; /* small */
+    --padding-md: 15px; /* medium */
+    --padding-lg: 30px; /* large */
+    --padding-df: var(--padding-md); /* default = medium */
+}
+
 .dark {
     --background: black;
     --rearground: rgb(30, 31, 33);
-    --rearground-border: rgb(60, 61, 63);
+    --rearground-border: rgb(70, 71, 73);
+    --rearground-in-background: rgb(40, 41, 43);
     --foreground: white;
-    --foreground2: rgb(150, 150, 150);
+    --foreground2: rgb(160, 160, 160);
     --foreground3: rgb(100, 100, 100);
+
+    --ripple: rgb(255, 255, 255, 0.3);
+    --ripple-hover: rgb(255, 255, 255, 0.1);
 }

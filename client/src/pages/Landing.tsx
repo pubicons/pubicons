@@ -1,5 +1,6 @@
 import { Box, Column, Row, Text } from "@web-package/react-widgets";
 import Logo from "../assets/svgs/logo.svg";
+import { RouterBinding } from "@web-package/react-widgets-router";
 
 export function LandingPage() {
     return (
@@ -15,7 +16,7 @@ export function LandingPage() {
                         </Box>
                     </Row>
                     <Row>
-                        <button className="primary">Sign In</button>
+                        <button className="primary" onClick={() => RouterBinding.instance.push("/sign-in")}>Sign In</button>
                         <button className="secondary">Sign Up</button>
                     </Row>
                 </Row>
