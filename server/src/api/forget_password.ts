@@ -22,7 +22,7 @@ export const FORGET_PASSWORD_HTTP_HANDLER = new HTTPHandler({
         const given = HTTPUtil.parseRequest<ForgetPasswordRequest>(requestBody, response);
         if (!given) return;
 
-        if (given.password && given.alias || given.email) {
+        if (given.password && (given.alias || given.email)) {
             const result = given.email
                 ? await PG_CLIENT.query(`SELECT "id" FROM "User" WHERE "email" = $1 LIMIT 1`, [given.email])
                 : await PG_CLIENT.query(`SELECT "id" FROM "User" WHERE "alias" = $1 LIMIT 1`, [given.alias]);

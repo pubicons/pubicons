@@ -18,6 +18,5 @@ And then, create a `redis.conf` file in the server/ folder and write the code ac
 
 ```conf
 port 6379
-bind localhost
 requirepass ...{0}
 ```

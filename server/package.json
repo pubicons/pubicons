@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "serve": "npm run build & npm-run-all --parallel start alive",
+    "serve": "npm-run-all --parallel start alive",
     "start": "ts-node src/http/index.ts",
     "watch": "nodemon --watch src/**/* --ext ts",
     "alive": "docker compose up"
