@@ -9,6 +9,7 @@
     --foreground: black;
     --foreground2: rgb(50, 50, 50);
     --foreground3: rgb(100, 100, 100);
+    --popup-background: white;
 }
 
 :root {
@@ -29,6 +30,7 @@
     --foreground: white;
     --foreground2: rgb(160, 160, 160);
     --foreground3: rgb(100, 100, 100);
+    --popup-background: rgb(40, 41, 43);
 
     --ripple: rgb(255, 255, 255, 0.3);
     --ripple-hover: rgb(255, 255, 255, 0.1);

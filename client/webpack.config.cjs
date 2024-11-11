@@ -60,6 +60,10 @@ module.exports = {
                         }
                     }
                 }],
+            },
+            { // To inset localization assets files to bundle files.
+                test: /(?<=localization).+.json$/,
+                type: "asset/source"
             }
         ]
     },

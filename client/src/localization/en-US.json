@@ -1,0 +1,18 @@
+{
+    "next": "Next",
+    "done": "Done",
+    "email": "Email",
+    "alias": "Alias",
+    "password": "Password",
+    "auth_numbers": "Auth Numbers",
+    "email_or_alias": "Email or Alias",
+    "sign-in": {
+        "title": "Sign in",
+        "description": "Sign-In to Access Free and Premium Icons",
+        "invalid_email": "A given email is not exists.",
+        "invalid_alias": "A given alias is not exists.",
+        "invalid_password": "A given password is invalid.",
+        "with_google": "Sign In with Google",
+        "with_github": "Sign In with GitHub"
+    }
+}

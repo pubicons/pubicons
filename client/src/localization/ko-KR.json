@@ -1,0 +1,18 @@
+{
+    "next": "다음",
+    "done": "제출",
+    "email": "이메일",
+    "alias": "별칭",
+    "password": "비밀번호",
+    "auth_numbers": "인증 번호",
+    "email_or_alias": "이메일 또는 별칭",
+    "sign-in": {
+        "title": "로그인",
+        "description": "로그인하여 무료 또는 프리미엄 아이콘을 설치하세요!",
+        "invalid_email": "주어진 이메일은 존재하지 않습니다.",
+        "invalid_alias": "주어진 별칭은 존재하지 않습니다.",
+        "invalid_password": "주어진 비밀번호가 유효하지 않습니다.",
+        "with_google": "구글 계정으로 로그인",
+        "with_github": "깃허브 계정으로 로그인"
+    }
+}

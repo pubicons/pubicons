@@ -10,12 +10,13 @@ import { useState } from "preact/hooks";
 import { Disactive } from "../../templates/Disactive";
 import { Test } from "../../components/test";
 import { RouterBinding } from "@web-package/react-widgets-router";
+import { Popup } from "../../components/popup";
+import { l10n } from "../../localization/localization";
 
 export function SignInPage() {
     const [emailAlias, setEmailAlias] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isLoading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string>(null);
 
     // Whether it currently possible to move to the next phase.
     const isNextable = emailAlias != "" && password != "";
@@ -32,42 +33,45 @@ export function SignInPage() {
             // Move to application page when after sccessful sign-in the user.
             RouterBinding.instance.push("/app");
         } else {
-            setError(await result.text());
+            Popup.open(
+                <Template.Popup.Error
+                    title={`${result.status} ERROR`}
+                    message={l10n["sign-in"][await result.text()]}
+                />
+            );
         }
     }
 
-    console.log(error);
-
     return (
         <>
-            <title>PUBICONS - Sign In</title>
+            <title>PUBICONS - {l10n["sign-in"]["title"]}</title>
             <Template.Area>
                 <Column gap="var(--padding-df)">
                     <Column>
-                        <Text.h1>Sign In</Text.h1>
-                        <Text.span color="var(--foreground2)">Sign-In to Access Free and Premium Icons</Text.span>
+                        <Text.h1>{l10n["sign-in"]["title"]}</Text.h1>
+                        <Text.span>{l10n["sign-in"]["description"]}</Text.span>
                     </Column>
                     <Column gap="var(--padding-sm)">
-                        <Input.Text onChange={setEmailAlias} type="email" design="area" placeholder="Email or Alias" />
-                        <Input.Text onChange={setPassword} type="password" design="area" placeholder="Password" />
+                        <Input.Text onChange={setEmailAlias} type="email" design="area" placeholder={l10n["email_or_alias"]} />
+                        <Input.Text onChange={setPassword} type="password" design="area" placeholder={l10n["password"]} />
                     </Column>
                     <SplitLineWithOR />
                     <ColumnList.Divider>
                         <TouchRipple onTap={() => {}}>
                             <Row align="centerLeft" paddingAndGap="var(--padding-df)">
                                 <GoogleLogo width="24px" />
-                                Sign in With Google
+                                {l10n["sign-in"]["with_google"]}
                             </Row>
                         </TouchRipple>
                         <TouchRipple onTap={() => {}}>
                             <Row align="centerLeft" paddingAndGap="var(--padding-df)">
                                 <GitHubLogo width="24px" />
-                                Sign in With GitHub
+                                {l10n["sign-in"]["with_github"]}
                             </Row>
                         </TouchRipple>
                     </ColumnList.Divider>
                     <Disactive active={isNextable}>
-                        <button className="primary" onClick={onListener} style={{width: "100%"}}>Done</button>
+                        <button className="primary" onClick={onListener} style={{width: "100%"}}>{l10n["done"]}</button>
                     </Disactive>
                 </Column>
             </Template.Area>
