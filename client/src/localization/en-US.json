@@ -6,6 +6,12 @@
     "password": "Password",
     "auth_numbers": "Auth Numbers",
     "email_or_alias": "Email or Alias",
+    "get_started": "Get Started",
+    "landing": {
+        "title": "PUBLISH OR SEARCH ICONS",
+        "description": "Access high-quality icons quickly and easily, without the need for sign-up or login. Download any icon for free and put it to use right away.",
+        "go_to_document": "Go to document"
+    },
     "sign-in": {
         "title": "Sign in",
         "description": "Sign-In to Access Free and Premium Icons",

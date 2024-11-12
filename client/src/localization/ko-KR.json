@@ -6,6 +6,12 @@
     "password": "비밀번호",
     "auth_numbers": "인증 번호",
     "email_or_alias": "이메일 또는 별칭",
+    "get_started": "시작하기",
+    "landing": {
+        "title": "퍼블리싱 또는 아이콘 검색",
+        "description": "회원 가입이나 로그인 없이도, 고품질의 아이콘을 누구나 무료로 빠르고 간편하게 다운로드할 수 있습니다. 원하는 아이콘을 빠르게 찾아 개발에 활용해보세요.",
+        "go_to_document": "문서로 이동"
+    },
     "sign-in": {
         "title": "로그인",
         "description": "로그인하여 무료 또는 프리미엄 아이콘을 설치하세요!",
@@ -14,5 +20,8 @@
         "invalid_password": "주어진 비밀번호가 유효하지 않습니다.",
         "with_google": "구글 계정으로 로그인",
         "with_github": "깃허브 계정으로 로그인"
+    },
+    "sign-up": {
+        "title": "회원가입"
     }
 }
