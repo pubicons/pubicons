@@ -3,6 +3,7 @@ import Logo from "../assets/svgs/logo.svg";
 import { RouterBinding } from "@web-package/react-widgets-router";
 import { l10n } from "../localization/localization";
 import { useEffect, useRef, useState } from "preact/hooks";
+import { Template } from "../templates/Template";
 
 export function LandingPage() {
     const highlightRef = useRef<HTMLDivElement>(null);
@@ -26,7 +27,8 @@ export function LandingPage() {
                             Dev
                         </Box>
                     </Row>
-                    <Row>
+                    <Row align="centerRight">
+                        <Template.ThemeSwitch />
                         <button className="primary" onClick={() => RouterBinding.instance.push("/sign-in")}>{l10n["sign-in"]["title"]}</button>
                         <button className="secondary" onClick={() => RouterBinding.instance.push("/sign-up")}>{l10n["sign-up"]["title"]}</button>
                     </Row>
