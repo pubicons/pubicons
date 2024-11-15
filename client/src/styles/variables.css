@@ -5,6 +5,7 @@
     --background: white;
     --rearground: rgb(240, 243, 246);
     --rearground-border: rgb(220, 223, 226);
+    --rearground-active: rgb(225, 230, 235);
     --rearground-in-background: white;
     --foreground: black;
     --foreground2: rgb(50, 50, 50);
@@ -26,6 +27,7 @@
     --background: black;
     --rearground: rgb(30, 31, 33);
     --rearground-border: rgb(70, 71, 73);
+    --rearground-active: rgb(50, 51, 53);
     --rearground-in-background: rgb(40, 41, 43);
     --foreground: white;
     --foreground2: rgb(160, 160, 160);

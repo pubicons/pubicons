@@ -37,7 +37,7 @@ export function LandingPage() {
                     <Text.h2 fontSize="48px">{l10n["landing"]["title"]}</Text.h2>
                     <Text.span fontSize="18px" color="var(--foreground2)" alignment="center" maxWidth="600px">{l10n["landing"]["description"]}</Text.span>
                     <Row gap="10px">
-                        <button className="primary">{l10n["get_started"]}</button>
+                        <button className="primary" onClick={() => RouterBinding.instance.push("/app")}>{l10n["get_started"]}</button>
                         <button className="tertiary" onClick={() => window.open("https://docs.pubicons.com")}>{l10n["landing"]["go_to_document"]}</button>
                     </Row>
                 </Column>
