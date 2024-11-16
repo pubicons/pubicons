@@ -1,4 +1,4 @@
-import { Box, Column, Row, Text } from "@web-package/react-widgets";
+import { Box, Column, Row, Scrollable, Text } from "@web-package/react-widgets";
 import Logo from "../assets/svgs/logo.svg";
 import { RouterBinding } from "@web-package/react-widgets-router";
 import { l10n } from "../localization/localization";
@@ -16,7 +16,7 @@ export function LandingPage() {
     }, []);
 
     return (
-        <>
+        <Scrollable.Vertical>
             <title>PUBICONS</title>
             <Column maxWidth="1200px" padding="15px" margin="auto">
                 <Row align="centerSpaceBetween">
@@ -68,7 +68,7 @@ export function LandingPage() {
                     />
                 </Box>
             </Column>
-        </>
+        </Scrollable.Vertical>
     )
 }
 
