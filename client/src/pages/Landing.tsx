@@ -49,7 +49,7 @@ export function LandingPage() {
                     boxSizing="border-box"
                     backgroundColor="var(--rearground)"
                     borderRadius="15px"
-                    border="1px solid var(--rearground-border)"
+                    border="10px solid var(--rearground-border)"
                     color="var(--foreground3)"
                 >
                     <CodeBlockContent />

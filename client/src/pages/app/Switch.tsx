@@ -48,14 +48,15 @@ namespace SideBar {
                     <SwitchItem active={false} normalIcon={UserIcon} activeIcon={UserFilledIcon} text="User" folded={isFold} />
                 </Scrollable.Vertical>
                 <Column marginBottom="var(--padding-df)">
-                    <Item icon={LeftArrowIcon} text="Close" folded={isFold} onTap={() => setFold(!isFold)} />
+                    <Item icon={LeftArrowIcon} text="Close" folded={isFold} fliped={!isFold} onTap={() => setFold(!isFold)} />
                 </Column>
             </Column>
         )
     }
 
-    function Item({folded, onTap, icon, text}: {
+    function Item({folded, fliped = false, onTap, icon, text}: {
         folded: boolean;
+        fliped?: boolean;
         onTap: VoidFunction;
         icon: SVGJSX;
         text: string;
@@ -70,7 +71,11 @@ namespace SideBar {
                     marginRight="var(--padding-df)"
                     borderRadius="0px 1e10px 1e10px 0px"
                 >
-                    <Icon width="18px" height="18px" />
+                    <Icon width="18px" height="18px" style={{
+                        transform: fliped ? "rotate(0turn)" : "rotate(0.5turn)",
+                        transitionProperty: "transform",
+                        transitionDuration: "0.3s",
+                    }} />
                     <AnimatedFoldable.Horizontal visible={!folded} duration="0.3s" overflow="visible" transition={{opacity: true}}>
                         <Text marginLeft="var(--padding-df)">{text}</Text>
                     </AnimatedFoldable.Horizontal>
