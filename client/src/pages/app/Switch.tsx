@@ -34,7 +34,7 @@ namespace SideBar {
         const [isFold, setFold] = useState(false);
 
         return (
-            <Column backgroundColor="var(--rearground)" borderRadius="0px 15px 15px 0px">
+            <Column backgroundColor="var(--rearground)" borderRight="1px solid var(--rearground-border)">
                 <Row align="centerLeft" gap="10px" padding="var(--padding-df)" marginBottom="var(--padding-sm)">
                     <Logo width="24px" />
                     <AnimatedFoldable.Horizontal visible={!isFold} duration="0.3s" transition={{opacity: true}}>
