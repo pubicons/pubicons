@@ -39,3 +39,7 @@ input {
     outline: none;
     color: var(--foreground);
 }
+
+touch-ripple {
+    cursor: pointer;
+}
