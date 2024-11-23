@@ -2,9 +2,10 @@
 :root {
     --primary: #1e69da;
     --primary-hover: #185abc;
+    --background-border: rgb(220, 220, 220);
     --background: white;
     --rearground: rgb(240, 243, 246);
-    --rearground-border: rgb(220, 223, 226);
+    --rearground-border: rgb(200, 200, 200);
     --rearground-active: rgb(225, 230, 235);
     --rearground-in-background: white;
     --foreground: black;
@@ -25,6 +26,7 @@
 
 .dark {
     --background: black;
+    --background-border: rgb(50, 51, 53);
     --rearground: rgb(30, 31, 33);
     --rearground-border: rgb(70, 71, 73);
     --rearground-active: rgb(50, 51, 53);
