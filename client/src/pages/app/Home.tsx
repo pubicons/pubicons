@@ -1,9 +1,13 @@
+import ControlIcon from "../../assets/svgs/control.svg";
+import SignOutIcon from "../../assets/svgs/sign_out.svg";
 import HistoryIcon from "../../assets/svgs/history.svg";
 import SearchIcon from "../../assets/svgs/search.svg";
 import MikeIcon from "../../assets/svgs/mike.svg";
 
 import { Box, Column, Constraint, ConstraintBuilder, Grid, Row, Scrollable, Text } from "@web-package/react-widgets";
 import { TouchRipple } from "web-touch-ripple/jsx";
+import { Button } from "../../templates/Button";
+import { Profile } from "../../templates/Profile";
 
 export function HomePage() {
     return (
@@ -30,9 +34,19 @@ function Header() {
 
 function HeaderTop() {
     return (
-        <Row align="center" gap="var(--padding-sm)">
-            <HeaderSearchBar />
-            <HeaderSearchVoice />
+        <Row align="center">
+            <Row width="100%" align="center" gap="var(--padding-sm)">
+                <HeaderSearchBar />
+                <HeaderSearchVoice />
+            </Row>
+            <Row width="max-content" flexShrink="0">
+                <Button type="secondary" text="Sign Out" icon={SignOutIcon} onTap={() => {}} />
+                <TouchRipple onTap={() => {}}>
+                    <Box padding="var(--padding-sm)" borderRadius="1e10px">
+                        <Profile.Default color="rgb(150, 150, 232)" name="D" size={32} />
+                    </Box>
+                </TouchRipple>
+            </Row>
         </Row>
     )
 }
@@ -75,9 +89,12 @@ function HeaderBottom() {
                     <Category title="Modern" selected={false} />
                     <Category title="Simple" selected={false} />
                     <Category title="Realistic" selected={false} />
+                    <Category title="Kidding" selected={false} />
+                    <Category title="Cutely" selected={false} />
+                    <Category title="Colorful" selected={false} />
                 </Row>
             </Scrollable.Horizontal>
-            <button className="primary">Filter</button>
+            <Button text="Filter" type="primary" icon={ControlIcon} onTap={() => {}} />
         </Row>
     )
 }

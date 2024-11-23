@@ -11,6 +11,7 @@ button.primary:hover {
     background-color: var(--primary-hover);
     cursor: pointer;
 }
+button.primary > svg { fill: white; }
 
 button.secondary {
     border-radius: 15px;
@@ -35,6 +36,7 @@ button.tertiary:hover {
     border-color: var(--primary);
     cursor: pointer;
 }
+button.tertiary > svg { fill: var(--primary); }
 
 input.area {
     padding: 15px;

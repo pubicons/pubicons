@@ -1,9 +1,12 @@
-import { Box, Column, Row, Scrollable, Text } from "@web-package/react-widgets";
 import Logo from "../assets/svgs/logo.svg";
+import AppIcon from "../assets/svgs/application.svg";
+
+import { Box, Column, Row, Scrollable, Text } from "@web-package/react-widgets";
 import { RouterBinding } from "@web-package/react-widgets-router";
 import { l10n } from "../localization/localization";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { Template } from "../templates/Template";
+import { Button } from "../templates/Button";
 
 export function LandingPage() {
     const highlightRef = useRef<HTMLDivElement>(null);
@@ -14,6 +17,14 @@ export function LandingPage() {
             highlightRef.current.style.boxShadow = "0px 0px 150px var(--primary)";
         }, 300);
     }, []);
+
+    function goToApp() {
+        RouterBinding.instance.push("/app");
+    }
+
+    function goToDocument() {
+        window.open("https://docs.pubicons.com");
+    }
 
     return (
         <Scrollable.Vertical>
@@ -29,16 +40,16 @@ export function LandingPage() {
                     </Row>
                     <Row align="centerRight">
                         <Template.ThemeSwitch />
-                        <button className="primary" onClick={() => RouterBinding.instance.push("/sign-in")}>{l10n["sign-in"]["title"]}</button>
-                        <button className="secondary" onClick={() => RouterBinding.instance.push("/sign-up")}>{l10n["sign-up"]["title"]}</button>
+                        <Button type="primary" text={l10n["sign-in"]["title"]} onTap={() => RouterBinding.instance.push("/sign-in")} />
+                        <Button type="secondary" text={l10n["sign-up"]["title"]} onTap={() => RouterBinding.instance.push("/sign-up")} />
                     </Row>
                 </Row>
                 <Column gap="15px" align="center" margin="100px 0px">
                     <Text.h2 fontSize="48px">{l10n["landing"]["title"]}</Text.h2>
                     <Text.span fontSize="18px" color="var(--foreground2)" alignment="center" maxWidth="600px">{l10n["landing"]["description"]}</Text.span>
                     <Row gap="10px">
-                        <button className="primary" onClick={() => RouterBinding.instance.push("/app")}>{l10n["get_started"]}</button>
-                        <button className="tertiary" onClick={() => window.open("https://docs.pubicons.com")}>{l10n["landing"]["go_to_document"]}</button>
+                        <Button type="primary" text={l10n["get_started"]} icon={AppIcon} onTap={goToApp} />
+                        <Button type="tertiary" text={l10n["landing"]["go_to_document"]} onTap={goToDocument} />
                     </Row>
                 </Column>
                 <Box
