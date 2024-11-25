@@ -22,6 +22,12 @@
         "with_github": "깃허브 계정으로 로그인"
     },
     "sign-up": {
-        "title": "회원가입"
+        "title": "회원가입",
+        "info_description": "가입할 사용자에 필요한 최소 정보를 입력하세요.",
+        "auth_description": "주어진 이메일로 전송된 인증 번호를 입력하세요.",
+        "already_exists_email": "주어진 이메일에 해당하는 계정이 이미 존재합니다.",
+        "already_exists_alias": "주어진 별칭에 해당하는 계정이 이미 존재합니다.",
+        "invalid_uuid": "사용자 인증이 만료되었습니다.",
+        "invalid_numbers": "주어진 인증 번호가 유효하지 않습니다."
     }
 }

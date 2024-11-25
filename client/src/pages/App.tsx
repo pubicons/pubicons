@@ -3,6 +3,7 @@ import { SwitchPage } from "./app/Switch";
 import { LandingPage } from "./Landing";
 import { NotFoundPage } from "./NotFound";
 import { SignInPage } from "./sign-in/SignIn";
+import { SignUpPage } from "./sign-up/SignUp";
 import { createContext } from "preact";
 import { Dispatch, StateUpdater, useState } from "preact/hooks";
 import { SettingsBinding } from "../settings/settings_binding";
@@ -28,6 +29,7 @@ export function App() {
                 <Route path="/" component={LandingPage} />
                 <Route path="/app" component={SwitchPage} />
                 <Route path="/sign-in" component={SignInPage} />
+                <Route path="/sign-up" component={SignUpPage} />
                 <Route path="" component={NotFoundPage} default={true} />
             </Router>
         </AppContext.Provider>

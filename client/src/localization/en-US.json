@@ -20,5 +20,14 @@
         "invalid_password": "A given password is invalid.",
         "with_google": "Sign In with Google",
         "with_github": "Sign In with GitHub"
+    },
+    "sign-up": {
+        "title": "회원가입",
+        "info_description": "Enter the user information you want to create.",
+        "auth_description": "Enter the emailed authentication number.",
+        "already_exists_email": "The account with this email already exists.",
+        "already_exists_alias": "The account with this alias already exists.",
+        "invalid_uuid": "User authentication has expired.",
+        "invalid_numbers": "A given auth-numbers is invalid"
     }
 }

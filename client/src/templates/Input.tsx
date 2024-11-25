@@ -6,7 +6,7 @@ export type InputTextListener = (newValue: string) => void;
 export namespace Input {
     export function Text({type, design, onChange, placeholder}: {
         type?: string;
-        design: "area";
+        design: "form";
         onChange?: InputTextListener;
         placeholder?: string;
     }) {

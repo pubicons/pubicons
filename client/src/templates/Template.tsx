@@ -47,7 +47,7 @@ export namespace Template {
                         size="100%"
                         backgroundColor="rgb(0, 0, 0, 0.25)"
                         pointerEvents="none"
-                        opacity={isActive ? "1" : "0"}
+                        opacity={loading ? "1" : "0"}
                         transitionProperty="opacity"
                         transitionDuration="0.3s"
                     >

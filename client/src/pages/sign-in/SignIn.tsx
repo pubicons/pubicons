@@ -52,8 +52,8 @@ export function SignInPage() {
                         <Text.span>{l10n["sign-in"]["description"]}</Text.span>
                     </Column>
                     <Column gap="var(--padding-sm)">
-                        <Input.Text onChange={setEmailAlias} type="email" design="area" placeholder={l10n["email_or_alias"]} />
-                        <Input.Text onChange={setPassword} type="password" design="area" placeholder={l10n["password"]} />
+                        <Input.Text onChange={setEmailAlias} type="email" design="form" placeholder={l10n["email_or_alias"]} />
+                        <Input.Text onChange={setPassword} type="password" design="form" placeholder={l10n["password"]} />
                     </Column>
                     <SplitLineWithOR />
                     <ColumnList.Divider>
