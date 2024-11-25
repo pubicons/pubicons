@@ -45,7 +45,7 @@ export function SignInPage() {
     return (
         <>
             <title>PUBICONS - {l10n["sign-in"]["title"]}</title>
-            <Template.FormWrapper>
+            <Template.FormWrapper loading={isLoading}>
                 <Column gap="var(--padding-df)">
                     <Column>
                         <Text.h1>{l10n["sign-in"]["title"]}</Text.h1>

@@ -3,21 +3,57 @@ import SunIcon from "../assets/svgs/sun.svg";
 import MoonIcon from "../assets/svgs/moon.svg";
 
 import { Box, Column, Text } from "@web-package/react-widgets";
-import { ReactNode, useContext } from "preact/compat";
+import { ReactNode, useContext, useLayoutEffect, useState } from "preact/compat";
 import { TouchRipple } from "web-touch-ripple/jsx";
 import { AppContext } from "../pages/App";
 import { SettingsBinding } from "../settings/settings_binding";
+import { Loading } from "./Loading";
 
 export namespace Template {
-    export function FormWrapper({children}: {children: ReactNode}) {
+    export function FormWrapper({children, loading = false}: {
+        children: ReactNode;
+        loading?: boolean;
+    }) {
+        const [isActive, setActive] = useState(loading);
+
+        useLayoutEffect(() => {
+            if (loading) {
+                setActive(true);
+            } else {
+                // Delay 300 ms for the transition animation.
+                setTimeout(() => setActive(false), 300);
+            }
+        }, [loading]);
+
         return (
             <Box display="flex" size="100%" justifyContent="center" alignItems="center">
                 <Box
+                    overflow="hidden"
+                    position="relative"
                     padding="var(--padding-lg)"
                     backgroundColor="var(--rearground)"
                     borderRadius="15px"
-                    children={children}
-                />
+                    pointerEvents={loading ? "none" : undefined}
+                    userSelect={loading ? "none" : undefined}
+                >
+                    {children}
+                    <Box
+                        display="flex"
+                        position="absolute"
+                        justifyContent="center"
+                        alignItems="center"
+                        top="0px"
+                        left="0px"
+                        size="100%"
+                        backgroundColor="rgb(0, 0, 0, 0.25)"
+                        pointerEvents="none"
+                        opacity={isActive ? "1" : "0"}
+                        transitionProperty="opacity"
+                        transitionDuration="0.3s"
+                    >
+                        {isActive ? <Loading.Circle size="40px" /> : <></>}
+                    </Box>
+                </Box>
             </Box>
         )
     }
