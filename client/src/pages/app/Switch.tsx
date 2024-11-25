@@ -9,27 +9,28 @@ import UserIcon from "../../assets/svgs/user.svg";
 import UserFilledIcon from "../../assets/svgs/user-filled.svg";
 import LeftArrowIcon from "../../assets/svgs/arrow_left.svg";
 
+import * as HomePage from "./Home";
+
 import { AnimatedFoldable, AnimatedTransition, Box, Column, Row, Scrollable, Text } from "@web-package/react-widgets";
 import { SVGJSX } from "../../types/types";
 import { TouchRipple } from "web-touch-ripple/jsx";
 import { useState } from "preact/hooks";
 import { Route, Router } from "@web-package/react-widgets-router";
-import { HomePage } from "./Home";
 
 export function SwitchPage() {
     return (
         <Row size="100%">
-            <SideBar.Body />
+            <NavigationSideBar.Body />
             <Column size="100%">
                 <Router>
-                    <Route path="/a" component={HomePage} default={true} />
+                    <Route path="/" component={HomePage.Body} default={true} />
                 </Router>
             </Column>
         </Row>
     )
 }
 
-namespace SideBar {
+namespace NavigationSideBar {
     export function Body() {
         const [isFold, setFold] = useState(false);
 

@@ -8,142 +8,101 @@ import { Box, Column, Constraint, ConstraintBuilder, Grid, Row, Scrollable, Text
 import { TouchRipple } from "web-touch-ripple/jsx";
 import { Button } from "../../templates/Button";
 import { Profile } from "../../templates/Profile";
+import { Template } from "../../templates/Template";
 
-export function HomePage() {
+export function Body() {
     return (
-        <Column size="100%">
-            <Header />
-            <Scrollable.Vertical>
-                <Column>
-                    <ContentHistory.Body />
-                    <Content.Body />
-                </Column>
-            </Scrollable.Vertical>
-        </Column>
+        <>
+            <title>PUBICONS - Home</title>
+            <Column size="100%">
+                <Header.Body />
+                <Scrollable.Vertical>
+                    <Column>
+                        <Content.History.Body />
+                        <Content.Body />
+                    </Column>
+                </Scrollable.Vertical>
+            </Column>
+        </>
     )
 }
 
-function Header() {
-    return (
-        <Column borderBottom="1px solid var(--rearground-border)" paddingAndGap="var(--padding-df)">
-            <HeaderTop />
-            <HeaderBottom />
-        </Column>
-    )
-}
-
-function HeaderTop() {
-    return (
-        <Row align="center">
-            <Row width="100%" align="center" gap="var(--padding-sm)">
-                <HeaderSearchBar />
-                <HeaderSearchVoice />
-            </Row>
-            <Row width="max-content" flexShrink="0">
-                <Button type="secondary" text="Sign Out" icon={SignOutIcon} onTap={() => {}} />
-                <TouchRipple onTap={() => {}}>
-                    <Box padding="var(--padding-sm)" borderRadius="1e10px">
-                        <Profile.Default color="rgb(150, 150, 232)" name="D" size={32} />
-                    </Box>
-                </TouchRipple>
-            </Row>
-        </Row>
-    )
-}
-
-function HeaderSearchBar() {
-    return (
-        <Row
-            width="100%"
-            maxWidth="600px"
-            paddingLeft="var(--padding-df)"
-            backgroundColor="var(--rearground)"
-            borderRadius="1e10px"
-        >
-            <SearchIcon width="18px" style={{fill: "var(--foreground2)"}} />
-            <input placeholder="Enter a name of icons and keywords or alias" style={{
-                width: "100%",
-                padding: "var(--padding-df)"
-            }} />
-        </Row>
-    )
-}
-
-function HeaderSearchVoice() {
-    return (
-        <TouchRipple onTap={() => {}}>
-            <Box display="flex" padding="var(--padding-df)" backgroundColor="var(--rearground)" borderRadius="1e10px">
-                <MikeIcon width="20px" height="20px" />
-            </Box>
-        </TouchRipple>
-    )
-}
-
-function HeaderBottom() {
-    return (
-        <Row>
-            <Scrollable.Horizontal>
-                <Row gap="var(--padding-sm)">
-                    <Category title="Rounded" selected={true} />
-                    <Category title="Sharp" selected={false} />
-                    <Category title="Modern" selected={false} />
-                    <Category title="Simple" selected={false} />
-                    <Category title="Realistic" selected={false} />
-                    <Category title="Kidding" selected={false} />
-                    <Category title="Cutely" selected={false} />
-                    <Category title="Colorful" selected={false} />
-                </Row>
-            </Scrollable.Horizontal>
-            <Button text="Filter" type="primary" icon={ControlIcon} onTap={() => {}} />
-        </Row>
-    )
-}
-
-namespace ContentHistory {
+namespace Header {
     export function Body() {
         return (
-            <Column margin="var(--padding-df)" paddingAndGap="var(--padding-df)" border="1px dashed var(--background-border)" borderRadius='10px'>
-                <Row align="centerLeft" gap="var(--padding-df)">
-                    <HistoryIcon width="24px" />
-                    <Column>
-                        <h3>Your History</h3>
-                        <span>The icons that is you previously downloaded.</span>
-                    </Column>
-                </Row>
-                <Scrollable.Horizontal>
-                    <Row gap="var(--padding-df)">
-                        <Item
-                            title="Minceraft Icons"
-                            coverURL="https://yt3.googleusercontent.com/_DiGCcjGwJQAZ3zmlyB8TCYuA8O9tDJ9zGNysq5sR0rxwYb6SP5fW8cb3LbfcRwfui0m27oIhA=s900-c-k-c0x00ffffff-no-rj"
-                        />
-                        <Item
-                            title="Bird Icons"
-                            coverURL="https://img.freepik.com/premium-vector/bird-colorful-logo-gradient-vector_1131634-35.jpg?semt=ais_hybrid"
-                        />
-                        <Item
-                            title="Cooking Icons"
-                            coverURL="https://marketplace.canva.com/EAFaFUz4aKo/2/0/1600w/canva-yellow-abstract-cooking-fire-free-logo-JmYWTjUsE-Q.jpg"
-                        />
-                    </Row>
-                </Scrollable.Horizontal>
+            <Column borderBottom="1px solid var(--rearground-border)" paddingAndGap="var(--padding-df)">
+                <TopArea />
+                <BottomArea />
             </Column>
         )
     }
 
-    function Item({title, coverURL}: {
-        title: string;
-        coverURL: string;
-    }) {
+    /** The area contains about search and the user profile components. */
+    function TopArea() {
+        return (
+            <Row align="center">
+                <Row width="100%" align="center" gap="var(--padding-sm)">
+                    <SearchBar />
+                    <SearchVoiceButton />
+                </Row>
+                <Row width="max-content" flexShrink="0">
+                    <Button type="secondary" text="Sign Out" icon={SignOutIcon} onTap={() => {}} />
+                    <Template.ThemeSwitch />
+                    <TouchRipple onTap={() => {}}>
+                        <Box padding="var(--padding-sm)" borderRadius="1e10px">
+                            <Profile.Default color="rgb(150, 150, 232)" name="D" size={32} />
+                        </Box>
+                    </TouchRipple>
+                </Row>
+            </Row>
+        )
+    }
+
+    function SearchBar() {
+        return (
+            <Row
+                width="100%"
+                maxWidth="600px"
+                paddingLeft="var(--padding-df)"
+                backgroundColor="var(--rearground)"
+                borderRadius="1e10px"
+            >
+                <SearchIcon width="18px" style={{fill: "var(--foreground2)"}} />
+                <input placeholder="Enter a name of icons and keywords or alias" style={{
+                    width: "100%",
+                    padding: "var(--padding-df)"
+                }} />
+            </Row>
+        )
+    }
+
+    function SearchVoiceButton() {
         return (
             <TouchRipple onTap={() => {}}>
-                <Row paddingAndGap="var(--padding-df)" backgroundColor="var(--rearground)" borderRadius="10px">
-                    <img src={coverURL} style={{width: "32px", height: "32px", borderRadius: "10px"}} />
-                    <Column gap="var(--padding-sm)">
-                        <Text.h4>{title}</Text.h4>
-                        <Text.span color="var(--foreground3)">22.3k · 2024-11-23</Text.span>
-                    </Column>
-                </Row>
+                <Box display="flex" padding="var(--padding-df)" backgroundColor="var(--rearground)" borderRadius="1e10px">
+                    <MikeIcon width="20px" height="20px" />
+                </Box>
             </TouchRipple>
+        )
+    }
+
+    function BottomArea() {
+        return (
+            <Row>
+                <Scrollable.Horizontal>
+                    <Row gap="var(--padding-sm)">
+                        <Category title="Rounded" selected={true} />
+                        <Category title="Sharp" selected={false} />
+                        <Category title="Modern" selected={false} />
+                        <Category title="Simple" selected={false} />
+                        <Category title="Realistic" selected={false} />
+                        <Category title="Kidding" selected={false} />
+                        <Category title="Cutely" selected={false} />
+                        <Category title="Colorful" selected={false} />
+                    </Row>
+                </Scrollable.Horizontal>
+                <Button text="Filter" type="primary" icon={ControlIcon} onTap={() => {}} />
+            </Row>
         )
     }
 }
@@ -153,7 +112,8 @@ namespace Content {
         return (
             <ConstraintBuilder
                 constraints={[
-                    new Constraint(1200, Infinity, 3),
+                    new Constraint(1600, Infinity, 4),
+                    new Constraint(1200, 1600, 3),
                     new Constraint(700, 1200, 2),
                     new Constraint(-Infinity, 700, 1)
                 ]}
@@ -218,6 +178,55 @@ namespace Content {
                 </Row>
             </TouchRipple>
         )
+    }
+
+    export namespace History {
+        export function Body() {
+            return (
+                <Column margin="var(--padding-df)" paddingAndGap="var(--padding-df)" border="1px dashed var(--background-border)" borderRadius='10px'>
+                    <Row align="centerLeft" gap="var(--padding-df)">
+                        <HistoryIcon width="24px" />
+                        <Column>
+                            <h3>Your History</h3>
+                            <span>The icons that is you previously downloaded.</span>
+                        </Column>
+                    </Row>
+                    <Scrollable.Horizontal>
+                        <Row gap="var(--padding-df)">
+                            <Item
+                                title="Minceraft Icons"
+                                coverURL="https://yt3.googleusercontent.com/_DiGCcjGwJQAZ3zmlyB8TCYuA8O9tDJ9zGNysq5sR0rxwYb6SP5fW8cb3LbfcRwfui0m27oIhA=s900-c-k-c0x00ffffff-no-rj"
+                            />
+                            <Item
+                                title="Bird Icons"
+                                coverURL="https://img.freepik.com/premium-vector/bird-colorful-logo-gradient-vector_1131634-35.jpg?semt=ais_hybrid"
+                            />
+                            <Item
+                                title="Cooking Icons"
+                                coverURL="https://marketplace.canva.com/EAFaFUz4aKo/2/0/1600w/canva-yellow-abstract-cooking-fire-free-logo-JmYWTjUsE-Q.jpg"
+                            />
+                        </Row>
+                    </Scrollable.Horizontal>
+                </Column>
+            )
+        }
+    
+        function Item({title, coverURL}: {
+            title: string;
+            coverURL: string;
+        }) {
+            return (
+                <TouchRipple onTap={() => {}}>
+                    <Row paddingAndGap="var(--padding-df)" backgroundColor="var(--rearground)" borderRadius="10px">
+                        <img src={coverURL} style={{width: "32px", height: "32px", borderRadius: "10px"}} />
+                        <Column gap="var(--padding-sm)">
+                            <Text.h4>{title}</Text.h4>
+                            <Text.span color="var(--foreground3)">22.3k · 2024-11-23</Text.span>
+                        </Column>
+                    </Row>
+                </TouchRipple>
+            )
+        }
     }
 }
 

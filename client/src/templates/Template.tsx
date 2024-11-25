@@ -9,7 +9,7 @@ import { AppContext } from "../pages/App";
 import { SettingsBinding } from "../settings/settings_binding";
 
 export namespace Template {
-    export function Area({children}: {children: ReactNode}) {
+    export function FormWrapper({children}: {children: ReactNode}) {
         return (
             <Box display="flex" size="100%" justifyContent="center" alignItems="center">
                 <Box

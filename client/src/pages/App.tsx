@@ -1,6 +1,6 @@
 import { Route, Router } from "@web-package/react-widgets-router";
-import { LandingPage } from "./Landing";
 import { SwitchPage } from "./app/Switch";
+import { LandingPage } from "./Landing";
 import { NotFoundPage } from "./NotFound";
 import { SignInPage } from "./sign-in/SignIn";
 import { createContext } from "preact";

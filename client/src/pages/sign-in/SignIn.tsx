@@ -45,7 +45,7 @@ export function SignInPage() {
     return (
         <>
             <title>PUBICONS - {l10n["sign-in"]["title"]}</title>
-            <Template.Area>
+            <Template.FormWrapper>
                 <Column gap="var(--padding-df)">
                     <Column>
                         <Text.h1>{l10n["sign-in"]["title"]}</Text.h1>
@@ -74,7 +74,7 @@ export function SignInPage() {
                         <button className="primary" onClick={onListener} style={{width: "100%"}}>{l10n["done"]}</button>
                     </Disactive>
                 </Column>
-            </Template.Area>
+            </Template.FormWrapper>
         </>
     )
 }

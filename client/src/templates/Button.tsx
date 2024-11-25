@@ -1,6 +1,4 @@
-import { TouchRipple } from "web-touch-ripple/jsx";
 import { SVGJSX } from "../types/types";
-import { Box } from "@web-package/react-widgets";
 
 export function Button({type, text, icon, onTap}: {
     type: "primary" | "secondary" | "tertiary"

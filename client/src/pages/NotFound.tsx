@@ -6,7 +6,7 @@ export function NotFoundPage() {
     return (
         <>
             <title>PUBICONS - Not Found</title>
-            <Template.Area>
+            <Template.FormWrapper>
                 <Column align="center" gap="var(--padding-df)">
                     <Column align="center">
                         <Text.h1 fontSize="48px">404</Text.h1>
@@ -14,7 +14,7 @@ export function NotFoundPage() {
                     </Column>
                     <button className="primary" onClick={() => RouterBinding.instance.push("/")}>Go to home</button>
                 </Column>
-            </Template.Area>
+            </Template.FormWrapper>
         </>
     )
 }
