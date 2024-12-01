@@ -37,7 +37,9 @@ namespace NavigationSideBar {
         return (
             <Column backgroundColor="var(--rearground)" borderRight="1px solid var(--rearground-border)">
                 <Row align="centerLeft" gap="10px" padding="var(--padding-df)" marginBottom="var(--padding-sm)">
-                    <Logo width="24px" />
+                    <Box paddingLeft="calc(var(--padding-sm) - 5px)">
+                        <Logo width="24px" />
+                    </Box>
                     <AnimatedFoldable.Horizontal visible={!isFold} duration="0.3s" transition={{opacity: true}}>
                         <Text.h1 fontSize="20px" paddingRight="var(--padding-df)">PUBICONS</Text.h1>
                     </AnimatedFoldable.Horizontal>
@@ -73,6 +75,7 @@ namespace NavigationSideBar {
                     borderRadius="0px 1e10px 1e10px 0px"
                 >
                     <Icon width="18px" height="18px" style={{
+                        marginLeft: "var(--padding-sm)",
                         transform: fliped ? "rotate(0turn)" : "rotate(0.5turn)",
                         transitionProperty: "transform",
                         transitionDuration: "0.3s",
@@ -107,7 +110,7 @@ namespace NavigationSideBar {
                     transitionProperty="background-color, color"
                     transitionDuration="0.3s"
                 >
-                    <Box size="18px">
+                    <Box size="18px" marginLeft="var(--padding-sm)">
                         <AnimatedTransition value={active} animation={{
                             duration: "0.3s",
                             fadeIn : {from: {opacity: "0"}, to: {opacity: "1"}},
