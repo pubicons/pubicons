@@ -48,7 +48,6 @@ export const SIGN_IN_HTTP_HANDLER = new HTTPHandler({
         passwordSalt = result.rows[0]["passwordSalt"];
 
         let givenPassword = createHash("sha512").update(given.password + passwordSalt).digest("base64");
-        console.log(givenPassword);
         if (givenPassword === password) {
             const accessToken = AuthUtil.createToken();
             const refreshToken = AuthUtil.createToken();

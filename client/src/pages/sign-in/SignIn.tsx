@@ -12,6 +12,7 @@ import { Test } from "../../components/test";
 import { RouterBinding } from "@web-package/react-widgets-router";
 import { Popup } from "../../components/popup";
 import { l10n } from "../../localization/localization";
+import { User } from "../../components/user";
 
 export function SignInPage() {
     const [emailAlias, setEmailAlias] = useState<string>("");
@@ -30,6 +31,8 @@ export function SignInPage() {
         setLoading(false);
 
         if (result.status == 200) {
+            User.signIn(await result.json());
+
             // Move to application page when after sccessful sign-in the user.
             RouterBinding.instance.push("/app");
         } else {
