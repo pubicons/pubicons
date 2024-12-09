@@ -26,15 +26,9 @@ export const SIGN_UP_HTTP_HANDLER = new HTTPHandler({
         if (!given) return;
 
         // The validation checking for given request.
-        if (given.email.length > 255
-         || given.alias.length > 64
-        ) {
-            response.writeHead(400);
-            response.end(APIException.INVALID_REQUEST_FORMAT);
-            return;
-        }
-
-        if (given.email && given.password && given.alias) {
+        if (given.email && given.email.length < 255
+         && given.alias && given.alias.length < 64
+         && given.password) {
             if (await User.existsEmail(given.email)) {
                 response.writeHead(409);
                 response.end(SignUpException.ALREADY_EXISTS_EMAIL);
