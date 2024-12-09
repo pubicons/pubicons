@@ -47,3 +47,26 @@ CREATE TABLE "UserDetails"(
     "profileImage" URL,
     FOREIGN KEY("id") REFERENCES "User"("id") ON DELETE CASCADE
 );
+
+CREATE TABLE "Organizations"(
+    "id" UUID PRIMARY KEY,
+    "stars" JSON NOT NULL DEFAULT '[]',
+    "alias" VARCHAR(64),
+    "displayName" VARCHAR(64),
+    "introduction" VARCHAR(256),
+    "createdAt" TIMESTAMP NOT NULL,
+    "updatedAt" TIMESTAMP,
+    "deletedAt" TIMESTAMP
+);
+
+-- Notification Status:
+-- 0 = Receive notifications for all updates (e.g., added or removed icons)
+-- 1 = Receive notifications only for announcements made by the master
+-- 2 = Disable notifications
+CREATE TABLE "Subscriptions"(
+    "userId" UUID NOT NULL,
+    "orgzId" UUID NOT NULL,
+    "notificationStatus" INT DEFAULT 0,
+    FOREIGN KEY("userId") REFERENCES "User"("id") ON DELETE CASCADE,
+    FOREIGN KEY("orgzId") REFERENCES "Organizations"("id") ON DELETE CASCADE
+);
