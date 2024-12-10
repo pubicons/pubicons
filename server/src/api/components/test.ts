@@ -5,6 +5,6 @@ export class Test {
     }
 
     static isAlias(text: string) {
-        return /^\w+(-\w+)*$/g.test(text);
+        return /^[a-z0-9_]+(-[a-z0-9_]+)*$/g.test(text);
     }
 }
