@@ -6,6 +6,7 @@ import { UUID } from "../utils/uuid";
 import { Mail } from "./components/mail";
 import { User } from "./components/user";
 import { HTTPUtil } from "../utils/http";
+import { Test } from "./components/test";
 
 export interface SignUpRequest {
     email: string;
@@ -17,11 +18,12 @@ export interface SignUpRequest {
 export enum SignUpException {
     ALREADY_EXISTS_EMAIL = "already_exists_email",
     ALREADY_EXISTS_ALIAS = "already_exists_alias",
-    INVALID_EMAIL_FORMAT = "invalid_email_format"
+    INVALID_EMAIL_FORMAT = "invalid_email_format",
+    INVALID_ALIAS_FORMAT = "invalid_alias_format"
 }
 
 export const SIGN_UP_HTTP_HANDLER = new HTTPHandler({
-    post: async (request, response, requestBody) => {
+    post: async (_, response, requestBody) => {
         const given = HTTPUtil.parseRequest<SignUpRequest>(requestBody, response);
         if (!given) return;
 
@@ -29,6 +31,12 @@ export const SIGN_UP_HTTP_HANDLER = new HTTPHandler({
         if (given.email && given.email.length < 255
          && given.alias && given.alias.length < 64
          && given.password) {
+            if (!Test.isAlias(given.alias)) {
+                response.writeHead(400);
+                response.end(SignUpException.INVALID_ALIAS_FORMAT);
+                return;
+            }
+
             if (await User.existsEmail(given.email)) {
                 response.writeHead(409);
                 response.end(SignUpException.ALREADY_EXISTS_EMAIL);
@@ -45,6 +53,10 @@ export const SIGN_UP_HTTP_HANDLER = new HTTPHandler({
             const authNums = AuthUtil.createNumbers(6);
 
             try {
+                if (!Test.isEmail(given.email)) {
+                    throw new Error(SignUpException.INVALID_EMAIL_FORMAT);
+                }
+
                 await Mail.sendHTML(given.email, "Your authentication numbers for sign-up about PubIcons", authNums);
 
                 // Sets the auth-number for the next sign-up task.

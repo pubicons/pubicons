@@ -17,6 +17,7 @@ import { PROFILE_HTTP_HANDLER } from "../api/profile";
 import { PROFILE_SELF_HTTP_HANDLER } from "../api/profile-self";
 import { FORGET_PASSWORD_AUTH_HTTP_HANDLER } from "../api/forget_password-auth";
 import { FORGET_PASSWORD_HTTP_HANDLER } from "../api/forget_password";
+import { ORGANIZATION_HTTP_HANDLER } from "../api/organization";
 
 /** Initializes configuation values in node.js about .env files. */
 config();
@@ -86,6 +87,8 @@ const RESOURCE_HTTP_HANDLER = new HTTPHandler({
  * - api/token
  * - api/forget-password
  * - api/forget-password/auth
+ * - api/organization
+ * - api/organization/self
 */
 const HTTP_ROUTER = new HTTPRouter("api", RESOURCE_HTTP_HANDLER, [
     new HTTPRouter("sign-in", SIGN_IN_HTTP_HANDLER),
@@ -93,6 +96,7 @@ const HTTP_ROUTER = new HTTPRouter("api", RESOURCE_HTTP_HANDLER, [
     new HTTPRouter("profile", PROFILE_HTTP_HANDLER, [new HTTPRouter("self", PROFILE_SELF_HTTP_HANDLER)]),
     new HTTPRouter("token", TOKEN_HTTP_HANDLER),
     new HTTPRouter("forget-password", FORGET_PASSWORD_HTTP_HANDLER, [new HTTPRouter("auth", FORGET_PASSWORD_AUTH_HTTP_HANDLER)]),
+    new HTTPRouter("organization", ORGANIZATION_HTTP_HANDLER)
 ]);
 
 const server = http.createServer(async (request, response) => {
