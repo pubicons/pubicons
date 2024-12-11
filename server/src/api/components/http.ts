@@ -8,5 +8,5 @@ export enum APIException {
 export enum APILength {
     alias = 64,
     email = 255,
-    displayName = 128
+    displayName = 32
 }
