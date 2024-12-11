@@ -1,6 +1,6 @@
 import { REDIS_CLIENT } from "../http";
 import { HTTPHandler } from "../http/core/http_handler";
-import { APIException } from "./components/http";
+import { APIException, APILength } from "./components/http";
 import { AuthUtil } from "../utils/auth";
 import { UUID } from "../utils/uuid";
 import { Mail } from "./components/mail";
@@ -28,8 +28,8 @@ export const SIGN_UP_HTTP_HANDLER = new HTTPHandler({
         if (!given) return;
 
         // The validation checking for given request.
-        if (given.email && given.email.length < 255
-         && given.alias && given.alias.length < 64
+        if (given.email && given.email.length < APILength.email
+         && given.alias && given.alias.length < APILength.alias
          && given.password) {
             if (!Test.isAlias(given.alias)) {
                 response.writeHead(400);

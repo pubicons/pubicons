@@ -50,13 +50,17 @@ CREATE TABLE "UserDetails"(
 
 CREATE TABLE "Organizations"(
     "id" UUID PRIMARY KEY,
+    "masterId" UUID NOT NULL,
     "stars" JSON NOT NULL DEFAULT '[]',
-    "alias" VARCHAR(64),
+    "alias" VARCHAR(64) NOT NULL UNIQUE,
     "displayName" VARCHAR(128),
     "introduction" VARCHAR(256),
+    "profileColor" RGB NOT NULL DEFAULT random_rgb(100, 255),
+    "profileImage" URL,
     "createdAt" TIMESTAMP NOT NULL,
     "updatedAt" TIMESTAMP,
-    "deletedAt" TIMESTAMP
+    "deletedAt" TIMESTAMP,
+    FOREIGN KEY("masterId") REFERENCES "User"("id") ON DELETE CASCADE
 );
 
 -- Notification Status:
