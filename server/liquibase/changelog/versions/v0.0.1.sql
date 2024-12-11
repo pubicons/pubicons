@@ -40,7 +40,7 @@ CREATE INDEX "indexCreatedAt" ON "User"("createdAt");
 
 CREATE TABLE "UserDetails"(
     "id" UUID NOT NULL,
-    "displayName" VARCHAR(128),
+    "displayName" VARCHAR(32),
     "bookmarkedIcons" JSON NOT NULL DEFAULT '[]',
     "downloadedIcons" JSON NOT NULL DEFAULT '[]',
     "profileColor" RGB NOT NULL DEFAULT random_rgb(100, 255),
@@ -53,7 +53,7 @@ CREATE TABLE "Organizations"(
     "masterId" UUID NOT NULL,
     "stars" JSON NOT NULL DEFAULT '[]',
     "alias" VARCHAR(64) NOT NULL UNIQUE,
-    "displayName" VARCHAR(128),
+    "displayName" VARCHAR(32),
     "introduction" VARCHAR(256),
     "profileColor" RGB NOT NULL DEFAULT random_rgb(100, 255),
     "profileImage" URL,
