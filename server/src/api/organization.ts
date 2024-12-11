@@ -49,8 +49,8 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
             }
 
             const uuid = UUID.v4();
-
-            await PG_CLIENT.query(`INSERT INTO "Organizations"("id", "masterId", "alias", "displayName", "introduction", "createdAt") VALUES($1, $2, $3, $4, $5, CURRENT_TIMESTAMP)`, [
+            const params = `"id", "masterId", "alias", "displayName", "introduction", "createdAt"`;
+            await PG_CLIENT.query(`INSERT INTO "Organizations"(${params}) VALUES($1, $2, $3, $4, $5, CURRENT_TIMESTAMP)`, [
                 uuid,
                 userId,
                 given.alias,
@@ -64,7 +64,7 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
             response.end(APIException.MISSING_REQUEST_FORMAT);
         }
     },
-    get: async (request, response, body) => {
+    get: async (request, response, _) => {
         const params = PathUtil.toUrl(request.url!).searchParams;
         const alias = params.get("alias");
         const uuid = params.get("uuid");
