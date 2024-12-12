@@ -11,7 +11,7 @@ export const ORGANIZATION_SELF_HTTP_HANDLER = new HTTPHandler({
             return;
         }
 
-        const result = await PG_CLIENT.query(`
+        const result1 = await PG_CLIENT.query(`
             SELECT 
                 "id", 
                 "masterId", 
@@ -27,6 +27,6 @@ export const ORGANIZATION_SELF_HTTP_HANDLER = new HTTPHandler({
         `, [userId]);
 
         response.writeHead(200);
-        response.end(JSON.stringify(result.rows));
+        response.end(JSON.stringify(result1.rows));
     }
 });

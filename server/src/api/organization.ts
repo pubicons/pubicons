@@ -66,19 +66,35 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
         }
     },
     get: async (request, response, _) => {
+        const userId = await AuthUtil.userIdOf(request);
         const params = PathUtil.toUrl(request.url!).searchParams;
         const alias = params.get("alias");
         const uuid = params.get("uuid");
         if (uuid || alias) {
-            const params = `"displayName", "introduction", "profileColor", "profileImage"`;
+            const params = `
+                jsonb_array_length(a."stars") AS "starsCount",
+                a."displayName",
+                a."introduction",
+                a."profileColor",
+                a."profileImage",
+                b."notificationStatus",
+                b."userId" IS NOT NULL AS "isSubscribed"
+            `;
+            const querys = `LEFT JOIN "Subscriptions" b ON a."id" = b."orgzId" AND b."userId" = $2`;
             const result = uuid
-                ? await PG_CLIENT.query(`SELECT "masterId", "alias", ${params} FROM "Organizations" WHERE "id" = $1 LIMIT 1`, [uuid])
-                : await PG_CLIENT.query(`SELECT "masterId", "id", ${params} FROM "Organizations" WHERE "alias" = $1 LIMIT 1`, [alias]);
+                ? await PG_CLIENT.query(`SELECT "masterId", "alias", ${params} FROM "Organizations" a ${querys} WHERE "id" = $1 LIMIT 1`, [uuid, userId])
+                : await PG_CLIENT.query(`SELECT "masterId", "id", ${params} FROM "Organizations" a ${querys} WHERE "alias" = $1 LIMIT 1`, [alias, userId])
 
-            if (result.rowCount == null || result.rowCount == 0) {
+            if (result.rowCount == null
+             || result.rowCount == 0) {
                 response.writeHead(400);
                 response.end(uuid ? OrganizationException.INVALID_UUID : OrganizationException.INVALID_ALIAS);
                 return;
+            }
+
+            // Not need to respond to notificationStatus if a user is not subscribed.
+            if (result.rows[0]["isSubscribed"] == false) {
+                delete result.rows[0]["notificationStatus"];
             }
 
             response.writeHead(200);
