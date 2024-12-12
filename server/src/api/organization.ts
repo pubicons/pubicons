@@ -28,7 +28,7 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
         const userId = await AuthUtil.userIdOf(request);
         if (!userId) {
             response.writeHead(401);
-            response.end(undefined);
+            response.end();
             return;
         }
 
@@ -42,7 +42,8 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
 
             const result = await PG_CLIENT.query(`SELECT "id" FROM "Organizations" WHERE "alias" = $1 LIMIT 1`, [given.alias]);
 
-            if (result.rowCount != 0) {
+            if (result.rowCount == null
+             || result.rowCount != 0) {
                 response.writeHead(400);
                 response.end(OrganizationException.ALREADY_EXISTS_ALIAS);
                 return;

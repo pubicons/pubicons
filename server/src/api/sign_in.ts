@@ -37,7 +37,8 @@ export const SIGN_IN_HTTP_HANDLER = new HTTPHandler({
             ? await PG_CLIENT.query(`SELECT "id", "password", "passwordSalt" FROM "User" WHERE "email" = $1`, [given.email])
             : await PG_CLIENT.query(`SELECT "id", "password", "passwordSalt" FROM "User" WHERE "alias" = $1`, [given.alias]);
 
-        if (result.rowCount == null || result.rowCount == 0) {
+        if (result.rowCount == null
+         || result.rowCount == 0) {
             response.writeHead(400);
             response.end(given.email ? SignInException.INVALID_EMAIL : SignInException.INVALID_ALIAS);
             return;

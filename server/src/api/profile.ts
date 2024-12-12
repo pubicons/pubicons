@@ -23,7 +23,8 @@ export const PROFILE_HTTP_HANDLER = new HTTPHandler({
             ]);
 
             // When the user not found corresponding to a given UUID.
-            if (result.rowCount == null || result.rowCount == 0) {
+            if (result.rowCount == null
+             || result.rowCount == 0) {
                 response.writeHead(400);
                 response.end(ProfileException.INVALID_UUID);
                 return;
