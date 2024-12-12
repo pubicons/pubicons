@@ -63,6 +63,8 @@ CREATE TABLE "Organizations"(
     FOREIGN KEY("masterId") REFERENCES "User"("id") ON DELETE CASCADE
 );
 
+CREATE INDEX "ginIndexOrganizationStars" ON "Organizations" USING GIN ("stars");
+
 -- Notification Status:
 -- 0 = Receive notifications for all updates (e.g., added or removed icons)
 -- 1 = Receive notifications only for announcements made by the master
