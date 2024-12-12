@@ -3,7 +3,7 @@ import { HTTPHandler } from "../http/core/http_handler";
 import { PathUtil } from "../utils/path";
 import { APIException } from "./components/http";
 
-enum ProfileException {
+enum SelfException {
     INVALID_UUID = "invalid_uuid"
 }
 
@@ -26,7 +26,7 @@ export const PROFILE_HTTP_HANDLER = new HTTPHandler({
             if (result.rowCount == null
              || result.rowCount == 0) {
                 response.writeHead(400);
-                response.end(ProfileException.INVALID_UUID);
+                response.end(SelfException.INVALID_UUID);
                 return;
             }
 

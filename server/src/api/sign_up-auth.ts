@@ -17,7 +17,7 @@ interface AuthRequest {
     numbers: string;
 }
 
-enum AuthException {
+enum SignUpAuthException {
     INVALID_UUID = "invalid_uuid",
     INVALID_NUMBERS = "invalid_numbers"
 }
@@ -35,7 +35,7 @@ export const SIGN_UP_AUTH_HTTP_HANDLER = new HTTPHandler({
         const rawAuthData = await REDIS_CLIENT.hGet("SignUpAuth", uuid!);
         if (!rawAuthData) {
             response.writeHead(400);
-            response.end(AuthException.INVALID_UUID);
+            response.end(SignUpAuthException.INVALID_UUID);
             return;
         }
 
@@ -103,7 +103,7 @@ export const SIGN_UP_AUTH_HTTP_HANDLER = new HTTPHandler({
             response.end(JSON.stringify({userId, accessToken, refreshToken}));
         } else {
             response.writeHead(400);
-            response.end(AuthException.INVALID_NUMBERS);
+            response.end(SignUpAuthException.INVALID_NUMBERS);
         }
     }
 });

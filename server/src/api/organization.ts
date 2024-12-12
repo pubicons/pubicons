@@ -87,7 +87,7 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
 
             if (result.rowCount == null
              || result.rowCount == 0) {
-                response.writeHead(400);
+                response.writeHead(409);
                 response.end(uuid ? OrganizationException.INVALID_UUID : OrganizationException.INVALID_ALIAS);
                 return;
             }

@@ -20,6 +20,7 @@ import { FORGET_PASSWORD_HTTP_HANDLER } from "../api/forget_password";
 import { ORGANIZATION_HTTP_HANDLER } from "../api/organization";
 import { ORGANIZATION_SEARCH_HTTP_HANDLER } from "../api/organization-search";
 import { ORGANIZATION_SELF_HTTP_HANDLER } from "../api/organization-self";
+import { ORGANIZATION_SUBSCRIPT_HTTP_HANDLER } from "../api/organization-subscription";
 
 /** Initializes configuation values in node.js about .env files. */
 config();
@@ -100,7 +101,8 @@ const HTTP_ROUTER = new HTTPRouter("api", RESOURCE_HTTP_HANDLER, [
     new HTTPRouter("forget-password", FORGET_PASSWORD_HTTP_HANDLER, [new HTTPRouter("auth", FORGET_PASSWORD_AUTH_HTTP_HANDLER)]),
     new HTTPRouter("organization", ORGANIZATION_HTTP_HANDLER, [
         new HTTPRouter("self", ORGANIZATION_SELF_HTTP_HANDLER),
-        new HTTPRouter("search", ORGANIZATION_SEARCH_HTTP_HANDLER)
+        new HTTPRouter("search", ORGANIZATION_SEARCH_HTTP_HANDLER),
+        new HTTPRouter("subscription", ORGANIZATION_SUBSCRIPT_HTTP_HANDLER)
     ])
 ]);
 
