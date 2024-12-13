@@ -63,6 +63,7 @@ export const SIGN_IN_HTTP_HANDLER = new HTTPHandler({
             // Sets the access token as the http-only cookie.
             AuthUtil.setAccessTokenAsCookie(response, accessToken);
 
+            response.setHeader("Content-Type", "application/json");
             response.writeHead(200);
             response.end(JSON.stringify({userId, accessToken, refreshToken}));
         } else {

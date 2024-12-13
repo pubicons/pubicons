@@ -21,11 +21,13 @@ export const ORGANIZATION_SELF_HTTP_HANDLER = new HTTPHandler({
                 "introduction", 
                 "profileColor", 
                 "profileImage", 
-                "createdAt" 
+                "createdAt",
+                "updatedAt" 
             FROM "Organizations" 
             WHERE "masterId" = $1
         `, [userId]);
 
+        response.setHeader("Content-Type", "application/json");
         response.writeHead(200);
         response.end(JSON.stringify(result1.rows));
     }

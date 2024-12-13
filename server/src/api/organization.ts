@@ -78,12 +78,14 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
                 a."profileColor",
                 a."profileImage",
                 b."notificationStatus",
-                b."userId" IS NOT NULL AS "isSubscribed"
+                b."userId" IS NOT NULL AS "isSubscribed",
+                a."createdAt",
+                a."updatedAt"
             `;
-            const querys = `LEFT JOIN "Subscriptions" b ON a."id" = b."orgzId" AND b."userId" = $2`;
+            const querys = `LEFT JOIN "Subscriptions" b ON a."id" = b."orgzId"`;
             const result = uuid
-                ? await PG_CLIENT.query(`SELECT "masterId", "alias", ${params} FROM "Organizations" a ${querys} WHERE "id" = $1 LIMIT 1`, [uuid, userId])
-                : await PG_CLIENT.query(`SELECT "masterId", "id", ${params} FROM "Organizations" a ${querys} WHERE "alias" = $1 LIMIT 1`, [alias, userId])
+                ? await PG_CLIENT.query(`SELECT "masterId", "alias", ${params} FROM "Organizations" a ${querys} WHERE "id" = $1 LIMIT 1`, [uuid])
+                : await PG_CLIENT.query(`SELECT "masterId", "id", ${params} FROM "Organizations" a ${querys} WHERE "alias" = $1 LIMIT 1`, [alias])
 
             if (result.rowCount == null
              || result.rowCount == 0) {
@@ -97,6 +99,7 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
                 delete result.rows[0]["notificationStatus"];
             }
 
+            response.setHeader("Content-Type", "application/json");
             response.writeHead(200);
             response.end(JSON.stringify(result.rows[0]));
         } else {

@@ -76,3 +76,21 @@ CREATE TABLE "Subscriptions"(
     FOREIGN KEY("userId") REFERENCES "User"("id") ON DELETE CASCADE,
     FOREIGN KEY("orgzId") REFERENCES "Organizations"("id") ON DELETE CASCADE
 );
+
+CREATE TABLE "ImageIcons"(
+    "id" UUID PRIMARY KEY,
+    "userId" UUID NOT NULL,
+    "orgzId" UUID NOT NULL,
+    "srcUrl" URL NOT NULL,
+    FOREIGN KEY("userId") REFERENCES "User"("id") ON DELETE CASCADE,
+    FOREIGN KEY("orgzId") REFERENCES "Organizations"("id") ON DELETE CASCADE
+);
+
+CREATE TABLE "VectorIcons"(
+    "id" UUID PRIMARY KEY,
+    "userId" UUID NOT NULL,
+    "orgzId" UUID NOT NULL,
+    "source" URL NOT NULL,
+    FOREIGN KEY("userId") REFERENCES "User"("id") ON DELETE CASCADE,
+    FOREIGN KEY("orgzId") REFERENCES "Organizations"("id") ON DELETE CASCADE
+);
