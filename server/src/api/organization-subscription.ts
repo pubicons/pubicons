@@ -51,8 +51,7 @@ export const ORGANIZATION_SUBSCRIPT_HTTP_HANDLER = new HTTPHandler({
                 ]);
 
                 // When a user already subscribed about the given organization.
-                if (result.rowCount != null
-                 || result.rowCount != 0) {
+                if (result.rowCount != 0) {
                     response.writeHead(409);
                     response.end(OrganizationException.ALREADY_SUBSCRIPTED);
                     return;
