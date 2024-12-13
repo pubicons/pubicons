@@ -48,3 +48,16 @@ input.form {
 }
 input.form:hover { border-color: var(--foreground3); }
 input.form:focus { border-color: var(--foreground); }
+
+.placeholder {
+    background-color: var(--rearground);
+    opacity: 0.5;
+    animation: placeholder alternate 0.4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes placeholder {
+    0%   { opacity: 1; }
+    100% { opacity: 0.75; }
+}
