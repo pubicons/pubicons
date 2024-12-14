@@ -19,6 +19,7 @@
     --padding-md: 15px; /* medium */
     --padding-lg: 30px; /* large */
     --padding-df: var(--padding-md); /* default = medium */
+    --content-max-width: 1600px;
 
     --router-fadein-keyframe: page_fade-in;
     --router-fadeout-keyframe: page_fade-out;

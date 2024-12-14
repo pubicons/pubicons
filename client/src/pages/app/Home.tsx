@@ -2,7 +2,11 @@ import ControlIcon from "../../assets/svgs/control.svg";
 import SignOutIcon from "../../assets/svgs/sign_out.svg";
 import HistoryIcon from "../../assets/svgs/history.svg";
 import SearchIcon from "../../assets/svgs/search.svg";
+import GithubIcon from "../../assets/svgs/github.svg";
 import MikeIcon from "../../assets/svgs/mike.svg";
+
+/** @ts-ignore */
+import DevTtangkong from "../../assets/images/dev_ttangkong.png";
 
 import { AnimatedTransition, Box, Column, Constraint, ConstraintBuilder, Grid, Row, Scrollable, Text } from "@web-package/react-widgets";
 import { TouchRipple } from "web-touch-ripple/jsx";
@@ -10,7 +14,6 @@ import { Button } from "../../templates/Button";
 import { Profile } from "../../templates/Profile";
 import { Template } from "../../templates/Template";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { Loading } from "../../templates/Loading";
 import { MathUtil } from "../../components/math";
 
 export function Body() {
@@ -20,7 +23,8 @@ export function Body() {
             <Column size="100%">
                 <Header.Body />
                 <Scrollable.Vertical>
-                    <Column>
+                    <Column maxWidth="var(--content-max-width)" margin="auto">
+                        <Content.Banner />
                         <Content.History.Body />
                         <Content.Body />
                     </Column>
@@ -200,8 +204,8 @@ namespace Content {
                     <Column gap="var(--padding-sm)">
                         <Column>
                             <Text.h3>{title}</Text.h3>
-                            <Text.span>{details}</Text.span>
-                            <Text.span>{keywords.map(e => `#${e}`).join(" ")}</Text.span>
+                            <Text.span maxLine={2}>{details}</Text.span>
+                            <Text.span marginTop="3px" color="var(--foreground3)">{keywords.map(e => `#${e}`).join(" ")}</Text.span>
                         </Column>
                         <Text.span color="var(--foreground3)">4.9☆ · 22.3k · 2024-11-23</Text.span>
                     </Column>
@@ -222,6 +226,35 @@ namespace Content {
                     <Box className="placeholder" width={`${lowerRef.current}%`} height="30px" backgroundColor="var(--rearground)" borderRadius="10px" />
                 </Column>
             </Row>
+        )
+    }
+
+    export function Banner() {
+        const goToGithub = () => {
+            window.open("https://github.com/MTtankkeo");
+        }
+
+        return (
+            <Box padding="var(--padding-df)" maxWidth="1000px" margin="auto">
+                <Row
+                    width="100%"
+                    height="200px"
+                    boxSizing="border-box"
+                    backgroundImage="linear-gradient(90deg, rgb(230, 200, 150), rgb(215, 120, 130))"
+                    border="3px solid rgba(220, 120, 120)"
+                    boxShadow="0px 0px 100px rgba(220, 120, 120, 0.5)"
+                    borderRadius="10px"
+                >
+                    <img src={DevTtangkong} height="100%" />
+                    <Column padding="var(--padding-df)" align="centerLeft">
+                        <Text.h3 color="black" fontSize="32px" maxLine={1}>DEV TTANGKONG</Text.h3>
+                        <Text.span color="rgb(50, 50, 50)" maxLine={3} fontSize="16px">I'm always striving to enhance user experiences as a front-end developer, And studying back-end.</Text.span>
+                        <Row marginTop="var(--padding-df)">
+                            <Button type="primary" text="Go to Github" icon={GithubIcon} onTap={goToGithub} />
+                        </Row>
+                    </Column>
+                </Row>
+            </Box>
         )
     }
 
@@ -255,7 +288,7 @@ namespace Content {
                 </Column>
             )
         }
-    
+
         function Item({title, coverURL}: {
             title: string;
             coverURL: string;
