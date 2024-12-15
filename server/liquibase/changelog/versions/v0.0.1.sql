@@ -50,7 +50,7 @@ CREATE TABLE "UserDetails"(
 
 CREATE TABLE "Organizations"(
     "id" UUID PRIMARY KEY,
-    "masterId" UUID NOT NULL,
+    "ownerId" UUID NOT NULL,
     "stars" JSONB NOT NULL DEFAULT '[]',
     "alias" VARCHAR(64) NOT NULL UNIQUE,
     "displayName" VARCHAR(32),

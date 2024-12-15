@@ -14,17 +14,17 @@ export const ORGANIZATION_SELF_HTTP_HANDLER = new HTTPHandler({
         const result1 = await PG_CLIENT.query(`
             SELECT 
                 "id", 
-                "masterId", 
-                jsonb_array_length("stars") AS "starsCount", 
+                "ownerId", 
                 "alias", 
                 "displayName", 
                 "introduction", 
                 "profileColor", 
                 "profileImage", 
+                jsonb_array_length("stars") AS "starsCount", 
                 "createdAt",
                 "updatedAt" 
             FROM "Organizations" 
-            WHERE "masterId" = $1
+            WHERE "ownerId" = $1
         `, [userId]);
 
         response.setHeader("Content-Type", "application/json");

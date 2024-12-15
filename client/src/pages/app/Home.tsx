@@ -205,8 +205,16 @@ namespace Content {
                         <Column>
                             <Text.h3>{title}</Text.h3>
                             <Text.span maxLine={2}>{details}</Text.span>
-                            <Text.span marginTop="3px" color="var(--foreground3)">{keywords.map(e => `#${e}`).join(" ")}</Text.span>
                         </Column>
+                        <Row gap="var(--padding-sm)">{
+                                keywords.map(keyword => {
+                                    return (
+                                        <Box padding="5px 10px" backgroundColor="var(--rearground-active)" borderRadius="1e10px">
+                                            <Text.span color="var(--foreground2)">{keyword}</Text.span>
+                                        </Box>
+                                    )
+                                })
+                            }</Row>
                         <Text.span color="var(--foreground3)">4.9☆ · 22.3k · 2024-11-23</Text.span>
                     </Column>
                 </Row>

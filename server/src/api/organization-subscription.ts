@@ -9,6 +9,7 @@ enum OrganizationException {
     INVALID_ALIAS = "invalid_alias",
     ALREADY_SUBSCRIPTED = "already_subscribed",
     ALREADY_UNSUBSCRIPTED = "already_unsubscribed",
+    OWNER_CANNOT_SUBSCRIBE = "owner_cannot_subscribe"
 }
 
 export const ORGANIZATION_SUBSCRIPT_HTTP_HANDLER = new HTTPHandler({
@@ -32,13 +33,20 @@ export const ORGANIZATION_SUBSCRIPT_HTTP_HANDLER = new HTTPHandler({
             }
 
             const validResult = uuid
-                ? await PG_CLIENT.query(`SELECT "id" FROM "Organizations" WHERE "id" = $1 LIMIT 1`, [uuid])
-                : await PG_CLIENT.query(`SELECT "id" FROM "Organizations" WHERE "alias" = $1 LIMIT 1`, [alias]);
+                ? await PG_CLIENT.query(`SELECT "id", "ownerId" FROM "Organizations" WHERE "id" = $1 LIMIT 1`, [uuid])
+                : await PG_CLIENT.query(`SELECT "id", "ownerId" FROM "Organizations" WHERE "alias" = $1 LIMIT 1`, [alias]);
 
             if (validResult.rowCount == null
              || validResult.rowCount == 0) {
                 response.writeHead(409);
                 response.end(uuid ? OrganizationException.INVALID_UUID : OrganizationException.INVALID_ALIAS);
+                return;
+            }
+
+            // The owner of the organization cannot subscribe to the myself organization.
+            if (validResult.rows[0]["ownerId"] == userId) {
+                response.writeHead(409);
+                response.end(OrganizationException.OWNER_CANNOT_SUBSCRIBE);
                 return;
             }
 

@@ -84,8 +84,8 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
             `;
             const querys = `LEFT JOIN "Subscriptions" b ON a."id" = b."orgzId"`;
             const result = uuid
-                ? await PG_CLIENT.query(`SELECT "masterId", "alias", ${params} FROM "Organizations" a ${querys} WHERE "id" = $1 LIMIT 1`, [uuid])
-                : await PG_CLIENT.query(`SELECT "masterId", "id", ${params} FROM "Organizations" a ${querys} WHERE "alias" = $1 LIMIT 1`, [alias])
+                ? await PG_CLIENT.query(`SELECT "ownerId", "alias", ${params} FROM "Organizations" a ${querys} WHERE "id" = $1 LIMIT 1`, [uuid])
+                : await PG_CLIENT.query(`SELECT "id", "ownerId", ${params} FROM "Organizations" a ${querys} WHERE "alias" = $1 LIMIT 1`, [alias])
 
             if (result.rowCount == null
              || result.rowCount == 0) {

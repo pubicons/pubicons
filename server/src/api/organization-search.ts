@@ -35,11 +35,14 @@ export const ORGANIZATION_SEARCH_HTTP_HANDLER = new HTTPHandler({
                 : `ORDER BY "createdAt" ASC`;
 
             const params = `
-                jsonb_array_length(a."stars") AS "starsCount",
+                a."id",
+                a."ownerId",
+                a."alias",
                 a."displayName",
                 a."introduction",
                 a."profileColor",
                 a."profileImage",
+                jsonb_array_length(a."stars") AS "starsCount",
                 b."notificationStatus",
                 b."userId" IS NOT NULL AS "isSubscribed",
                 a."createdAt",
