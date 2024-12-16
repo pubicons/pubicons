@@ -1,3 +1,4 @@
+name: pubicons
 services:
   postgres:
     container_name: PostgreSQL
