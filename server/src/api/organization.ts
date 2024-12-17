@@ -4,7 +4,7 @@ import { AuthUtil } from "../core/utils/auth";
 import { HTTPUtil } from "../core/utils/http";
 import { PathUtil } from "../core/utils/path";
 import { UUID } from "../core/utils/uuid";
-import { APIException, APILength } from "./components/http";
+import { APIException, APILength } from "../core/api/http";
 import { Test } from "./components/test";
 
 interface OrganizationPostReqeust {

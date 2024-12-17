@@ -4,7 +4,7 @@ import { AuthUtil } from "../core/utils/auth";
 import { HTTPUtil } from "../core/utils/http";
 import { PathUtil } from "../core/utils/path";
 import { UUID } from "../core/utils/uuid";
-import { APIException } from "./components/http";
+import { APIException } from "../core/api/http";
 import { User } from "./components/user";
 import { SignUpException, SignUpRequest } from "./sign_up";
 import { createHash, randomBytes } from "crypto";

@@ -1,6 +1,6 @@
 import { REDIS_CLIENT } from "..";
 import { HTTPHandler } from "../core/http/http_handler";
-import { APIException, APILength } from "./components/http";
+import { APIException, APILength } from "../core/api/http";
 import { AuthUtil } from "../core/utils/auth";
 import { UUID } from "../core/utils/uuid";
 import { Mail } from "./components/mail";

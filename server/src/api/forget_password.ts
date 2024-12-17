@@ -3,7 +3,7 @@ import { HTTPHandler } from "../core/http/http_handler";
 import { AuthUtil } from "../core/utils/auth";
 import { HTTPUtil } from "../core/utils/http";
 import { UUID } from "../core/utils/uuid";
-import { APIException } from "./components/http";
+import { APIException } from "../core/api/http";
 import { Mail } from "./components/mail";
 
 interface ForgetPasswordRequest {

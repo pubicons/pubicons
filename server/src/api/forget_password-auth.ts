@@ -3,7 +3,7 @@ import { PG_CLIENT, REDIS_CLIENT } from "..";
 import { HTTPHandler } from "../core/http/http_handler";
 import { HTTPUtil } from "../core/utils/http";
 import { PathUtil } from "../core/utils/path";
-import { APIException } from "./components/http";
+import { APIException } from "../core/api/http";
 
 interface AuthData {
     userId: string;
