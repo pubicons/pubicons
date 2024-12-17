@@ -26,7 +26,7 @@ services:
       - ./db/redis/data:/data
       - ./redis.conf:/usr/local/etc/redis/redis.conf
     ports:
-      - "${REDIS_PORT}:${REDIS_PORT}"
+      - "${REDIS_PORT}:6379"
 
   liquibase:
     container_name: PostgreSQL-Liquibase
