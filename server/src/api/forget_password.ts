@@ -1,8 +1,8 @@
-import { PG_CLIENT, REDIS_CLIENT } from "../http";
-import { HTTPHandler } from "../http/core/http_handler";
-import { AuthUtil } from "../utils/auth";
-import { HTTPUtil } from "../utils/http";
-import { UUID } from "../utils/uuid";
+import { PG_CLIENT, REDIS_CLIENT } from "..";
+import { HTTPHandler } from "../core/http/http_handler";
+import { AuthUtil } from "../core/utils/auth";
+import { HTTPUtil } from "../core/utils/http";
+import { UUID } from "../core/utils/uuid";
 import { APIException } from "./components/http";
 import { Mail } from "./components/mail";
 

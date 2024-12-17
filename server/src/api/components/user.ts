@@ -1,4 +1,4 @@
-import { PG_CLIENT } from "../../http";
+import { PG_CLIENT } from "../..";
 
 export class User {
     static async existsEmail(email: string): Promise<boolean> {

@@ -1,11 +1,11 @@
-import { REDIS_CLIENT } from "../http";
-import { HTTPHandler } from "../http/core/http_handler";
+import { REDIS_CLIENT } from "..";
+import { HTTPHandler } from "../core/http/http_handler";
 import { APIException, APILength } from "./components/http";
-import { AuthUtil } from "../utils/auth";
-import { UUID } from "../utils/uuid";
+import { AuthUtil } from "../core/utils/auth";
+import { UUID } from "../core/utils/uuid";
 import { Mail } from "./components/mail";
 import { User } from "./components/user";
-import { HTTPUtil } from "../utils/http";
+import { HTTPUtil } from "../core/utils/http";
 import { Test } from "./components/test";
 
 export interface SignUpRequest {

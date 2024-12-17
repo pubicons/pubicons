@@ -1,7 +1,7 @@
-import { REDIS_CLIENT } from "../http";
-import { HTTPHandler } from "../http/core/http_handler";
-import { AuthUtil } from "../utils/auth";
-import { HTTPUtil } from "../utils/http";
+import { REDIS_CLIENT } from "..";
+import { HTTPHandler } from "../core/http/http_handler";
+import { AuthUtil } from "../core/utils/auth";
+import { HTTPUtil } from "../core/utils/http";
 import { APIException } from "./components/http";
 
 interface TokenRequest {
