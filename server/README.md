@@ -17,6 +17,5 @@ EMAIL_PASSWORD=...
 And then, create a `redis.conf` file in the server/ folder and write the code according to the format below.
 
 ```conf
-port 6379
 requirepass ...{0}
 ```

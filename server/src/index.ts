@@ -35,6 +35,10 @@ export const PG_CLIENT = new Client({
 
 /** The value defines the currently active redis client instance. */
 export const REDIS_CLIENT = createClient({
+    socket: {
+        // Based on the external port (internal port is the default port of redis)
+        port: Number.parseInt(process.env.REDIS_PORT as string)
+    },
     password: process.env.REDIS_PASSWORD
 });
 
