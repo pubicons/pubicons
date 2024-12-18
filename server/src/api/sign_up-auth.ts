@@ -1,13 +1,11 @@
+import { HTTPHandler, HTTPUtil, UUID } from "core";
 import { PG_CLIENT, REDIS_CLIENT } from "..";
-import { HTTPHandler } from "../core/http/http_handler";
-import { AuthUtil } from "../core/utils/auth";
-import { HTTPUtil } from "../core/utils/http";
-import { PathUtil } from "../core/utils/path";
-import { UUID } from "../core/utils/uuid";
-import { APIException } from "../core/api/http";
 import { User } from "./components/user";
 import { SignUpException, SignUpRequest } from "./sign_up";
 import { createHash, randomBytes } from "crypto";
+import { APIException } from "core/src/api";
+import { PathUtil } from "core/src";
+import { AuthUtil } from "../utils/auth";
 
 interface AuthData extends SignUpRequest {
     numbers: string;

@@ -1,3 +1,6 @@
 [submodule "server/src/core"]
 	path = server/src/core
 	url = https://github.com/pubicons/pubicons-core
+[submodule "server/src/submodules/core"]
+	path = server/src/submodules/core
+	url = https://github.com/pubicons/pubicons-core

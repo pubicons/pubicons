@@ -1,6 +1,6 @@
+import { HTTPHandler } from "core";
 import { PG_CLIENT } from "..";
-import { HTTPHandler } from "../core/http/http_handler";
-import { AuthUtil } from "../core/utils/auth";
+import { AuthUtil } from "../utils/auth";
 
 export const ORGANIZATION_SELF_HTTP_HANDLER = new HTTPHandler({
     get: async (request, response, _) => {

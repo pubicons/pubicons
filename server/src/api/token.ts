@@ -1,8 +1,8 @@
+import { HTTPHandler } from "core";
 import { REDIS_CLIENT } from "..";
-import { HTTPHandler } from "../core/http/http_handler";
-import { AuthUtil } from "../core/utils/auth";
-import { HTTPUtil } from "../core/utils/http";
-import { APIException } from "../core/api/http";
+import { AuthUtil } from "../utils/auth";
+import { APIException } from "core/src/api";
+import { HTTPUtil } from "core/src";
 
 interface TokenRequest {
     refreshToken: string;
@@ -13,7 +13,7 @@ enum TokenException {
 }
 
 export const TOKEN_HTTP_HANDLER = new HTTPHandler({
-    post: async (request, response, requestBody) => {
+    post: async (_, response, requestBody) => {
         const given = HTTPUtil.parseRequest<TokenRequest>(requestBody, response);
         if (!given) return;
 

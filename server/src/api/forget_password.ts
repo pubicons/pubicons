@@ -1,10 +1,9 @@
+import { HTTPHandler, UUID } from "core";
 import { PG_CLIENT, REDIS_CLIENT } from "..";
-import { HTTPHandler } from "../core/http/http_handler";
-import { AuthUtil } from "../core/utils/auth";
-import { HTTPUtil } from "../core/utils/http";
-import { UUID } from "../core/utils/uuid";
-import { APIException } from "../core/api/http";
 import { Mail } from "./components/mail";
+import { HTTPUtil } from "core/src";
+import { AuthUtil } from "../utils/auth";
+import { APIException } from "core/src/api";
 
 interface ForgetPasswordRequest {
     email: string;

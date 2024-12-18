@@ -1,11 +1,6 @@
 import http from "http";
 import fs from "fs";
 import path from "path";
-import { HTTPRouter } from "./core/http/http_router";
-import { HTTPHandler } from "./core/http/http_handler";
-import { HTTPConnection } from "./core/http/http_connection";
-import { HTTPUtil } from "./core/utils/http";
-import { PathUtil } from "./core/utils/path";
 import { Client } from "pg";
 import { config } from "dotenv";
 import { createClient } from "redis";
@@ -21,6 +16,8 @@ import { ORGANIZATION_HTTP_HANDLER } from "./api/organization";
 import { ORGANIZATION_SEARCH_HTTP_HANDLER } from "./api/organization-search";
 import { ORGANIZATION_SELF_HTTP_HANDLER } from "./api/organization-self";
 import { ORGANIZATION_SUBSCRIPT_HTTP_HANDLER } from "./api/organization-subscription";
+import { HTTPConnection, HTTPHandler, HTTPRouter, PathUtil } from "core";
+import { HTTPUtil } from "core/src";
 
 /** Initializes configuation values in node.js about .env files. */
 config();

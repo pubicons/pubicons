@@ -1,7 +1,7 @@
+import { HTTPHandler } from "core";
 import { PG_CLIENT } from "..";
-import { HTTPHandler } from "../core/http/http_handler";
-import { PathUtil } from "../core/utils/path";
-import { APIException } from "../core/api/http";
+import { PathUtil } from "core/src";
+import { APIException } from "core/src/api";
 
 enum SelfException {
     INVALID_UUID = "invalid_uuid"

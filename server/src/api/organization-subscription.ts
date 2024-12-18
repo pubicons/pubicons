@@ -1,8 +1,8 @@
+import { HTTPHandler } from "core";
 import { PG_CLIENT } from "..";
-import { HTTPHandler } from "../core/http/http_handler";
-import { AuthUtil } from "../core/utils/auth";
-import { PathUtil } from "../core/utils/path";
-import { APIException } from "../core/api/http";
+import { AuthUtil } from "../utils/auth";
+import { PathUtil } from "core/src";
+import { APIException } from "core/src/api";
 
 enum OrganizationException {
     INVALID_UUID = "invalid_uuid",
