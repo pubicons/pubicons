@@ -60,7 +60,7 @@ CREATE TABLE "Organizations"(
     "createdAt" TIMESTAMP NOT NULL,
     "updatedAt" TIMESTAMP,
     "deletedAt" TIMESTAMP,
-    FOREIGN KEY("masterId") REFERENCES "User"("id") ON DELETE CASCADE
+    FOREIGN KEY("ownerId") REFERENCES "User"("id") ON DELETE CASCADE
 );
 
 CREATE INDEX "ginIndexOrganizationStars" ON "Organizations" USING GIN ("stars");
