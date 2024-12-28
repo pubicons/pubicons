@@ -6,15 +6,17 @@ import { Template } from "../../templates/Template";
 import { Input } from "../../templates/Input";
 import { TouchRipple } from "web-touch-ripple/jsx";
 import { ColumnList } from "../../templates/List";
-import { useState } from "preact/hooks";
+import { useContext, useState } from "preact/hooks";
 import { Disactive } from "../../templates/Disactive";
 import { Test } from "../../components/test";
 import { RouterBinding } from "@web-package/react-widgets-router";
 import { Popup } from "../../components/popup";
 import { l10n } from "../../localization/localization";
 import { User } from "../../components/user";
+import { AppContext } from "../App";
 
 export function SignInPage() {
+    const context = useContext(AppContext);
     const [emailAlias, setEmailAlias] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isLoading, setLoading] = useState<boolean>(false);
@@ -35,6 +37,10 @@ export function SignInPage() {
 
             // Move to application page when after sccessful sign-in the user.
             RouterBinding.instance.push("/app");
+
+            // Refresh when the user logs in or the sign-in
+            // status changes, updating the UI/UX.
+            context("Update user status to sign-ined");
         } else {
             Popup.open(
                 <Template.Popup.Error

@@ -18,7 +18,7 @@ enum SignInException {
 }
 
 export const SIGN_IN_HTTP_HANDLER = new HTTPHandler({
-    post: async (request, response, requestBody) => {
+    post: async (_, response, requestBody) => {
         const given = HTTPUtil.parseRequest<SignInRequest>(requestBody, response);
         if (!given) return;
 

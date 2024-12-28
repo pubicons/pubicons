@@ -3,10 +3,12 @@ import { l10n } from "../../localization/localization";
 import { Template } from "../../templates/Template";
 import { Input } from "../../templates/Input";
 import { Disactive } from "../../templates/Disactive";
-import { useRef, useState } from "preact/hooks";
+import { useContext, useRef, useState } from "preact/hooks";
 import { Test } from "../../components/test";
 import { RouterBinding } from "@web-package/react-widgets-router";
 import { Popup } from "../../components/popup";
+import { AppContext } from "../App";
+import { User } from "../../components/user";
 
 enum SignUpStatus {
     INFO,
@@ -14,6 +16,7 @@ enum SignUpStatus {
 }
 
 export function SignUpPage() {
+    const context = useContext(AppContext);
     const [status, setStatus] = useState(SignUpStatus.INFO);
     const [alias, setAlias] = useState<string>("");
     const [email, setEmail] = useState<string>("");
@@ -57,8 +60,14 @@ export function SignUpPage() {
             setLoading(false);
 
             if (result.status == 200) {
+                User.signIn(await result.json());
+
                 // Move to application page when after sccessful sign-up the user.
                 RouterBinding.instance.push("/app");
+
+                // Refresh when the user logs in or the sign-in
+                // status changes, updating the UI/UX.
+                context("Update user status to sign-ined");
             } else {
                 Popup.open(
                     <Template.Popup.Error

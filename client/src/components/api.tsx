@@ -1,7 +1,9 @@
 
 export namespace API {
     export enum NotificationStatus {
-
+        ALL = 0,
+        ONLY_IMPORTANT = 1,
+        NONE = 2
     }    
 
     // https://docs.pubicons.com/sign-up-2-auth
@@ -10,6 +12,15 @@ export namespace API {
         userId: string;
         accessToken: string;
         refreshToken: string;
+    }
+
+    // https://docs.pubicons.com/api-server/profile
+    export interface Profile {
+        displayName: string;
+        email: string;
+        alias: string;
+        profileImage: string;
+        profileColor: string;
     }
 
     export interface Organization {

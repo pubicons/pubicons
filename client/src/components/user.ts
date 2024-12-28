@@ -3,7 +3,11 @@ import { Storage } from "./storage";
 
 export class User {
     static get isOffline() {
-        return Storage.get("user-activeId") == null;
+        return this.activeId == null;
+    }
+
+    static get activeId() {
+        return Storage.get("user-activeId");
     }
 
     static get accounts(): API.Account[] {
