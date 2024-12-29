@@ -49,17 +49,13 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
 
             const uuid = UUID.v4();
             const params = `"id", "ownerId", "alias", "displayName", "introduction", "createdAt"`;
-            try {
-                await PG_CLIENT.query(`INSERT INTO "Organizations"(${params}) VALUES($1, $2, $3, $4, $5, CURRENT_TIMESTAMP)`, [
-                    uuid,
-                    userId,
-                    given.alias,
-                    given.displayName,
-                    given.introduction
-                ]);
-            } catch (error) {
-                console.log(error);
-            }
+            await PG_CLIENT.query(`INSERT INTO "Organizations"(${params}) VALUES($1, $2, $3, $4, $5, CURRENT_TIMESTAMP)`, [
+                uuid,
+                userId,
+                given.alias,
+                given.displayName,
+                given.introduction
+            ]);
 
             response.writeHead(200, {"content-type": "applization/json"});
             response.end(JSON.stringify({id: uuid}));
