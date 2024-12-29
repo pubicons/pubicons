@@ -37,6 +37,7 @@ export const ORGANIZATION_SEARCH_HTTP_HANDLER = new HTTPHandler({
             const params = `
                 a."id",
                 a."ownerId",
+                a."tags",
                 a."alias",
                 a."displayName",
                 a."introduction",

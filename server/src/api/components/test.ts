@@ -7,4 +7,10 @@ export class Test {
     static isAlias(text: string) {
         return /^[a-z0-9_]+(-[a-z0-9_]+)*$/g.test(text);
     }
+
+    static isArray(values: any[], type: "string" | "number") {
+        return Array.isArray(values)
+            && values.filter(value => typeof value === type && Number.isFinite(value)).length
+            == values.length
+    }
 }

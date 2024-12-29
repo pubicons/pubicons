@@ -51,6 +51,7 @@ CREATE TABLE "UserDetails"(
 CREATE TABLE "Organizations"(
     "id" UUID PRIMARY KEY,
     "ownerId" UUID NOT NULL,
+    "tags" JSONB NOT NULL DEFAULT '[]',
     "stars" JSONB NOT NULL DEFAULT '[]',
     "alias" VARCHAR(64) NOT NULL UNIQUE,
     "displayName" VARCHAR(32),

@@ -15,6 +15,7 @@ export const ORGANIZATION_SELF_HTTP_HANDLER = new HTTPHandler({
             SELECT 
                 "id", 
                 "ownerId", 
+                "tags",
                 "alias", 
                 "displayName", 
                 "introduction", 

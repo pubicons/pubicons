@@ -9,11 +9,13 @@ interface OrganizationPostReqeust {
     alias: string;
     displayName: string;
     introduction?: string;
+    tags: string[];
 }
 
 enum OrganizationException {
-    INVALID_ALIAS_FORMAT = "invalid_alias_format",
     ALREADY_EXISTS_ALIAS = "already_exists_alias",
+    INVALID_ALIAS_FORMAT = "invalid_alias_format",
+    INVALID_TAGS_FORMAT = "invalid_tags_format",
     INVALID_UUID = "invalid_uuid",
     INVALID_ALIAS = "invalid_alias"
 }
@@ -38,7 +40,15 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
                 return;
             }
 
-            const result = await PG_CLIENT.query(`SELECT "id" FROM "Organizations" WHERE "alias" = $1 LIMIT 1`, [given.alias]);
+            if (given.tags && !Test.isArray(given.tags, "number")) {
+                response.writeHead(400);
+                response.end(OrganizationException.INVALID_TAGS_FORMAT);
+                return;
+            }
+
+            const result = await PG_CLIENT.query(`SELECT "id" FROM "Organizations" WHERE "alias" = $1 LIMIT 1`, [
+                given.alias
+            ]);
 
             if (result.rowCount == null
              || result.rowCount != 0) {
@@ -48,14 +58,20 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
             }
 
             const uuid = UUID.v4();
-            const params = `"id", "ownerId", "alias", "displayName", "introduction", "createdAt"`;
-            await PG_CLIENT.query(`INSERT INTO "Organizations"(${params}) VALUES($1, $2, $3, $4, $5, CURRENT_TIMESTAMP)`, [
-                uuid,
-                userId,
-                given.alias,
-                given.displayName,
-                given.introduction
-            ]);
+            const params = `"id", "ownerId", "tags", "alias", "displayName", "introduction", "createdAt"`;
+            try {
+                await PG_CLIENT.query(`INSERT INTO "Organizations"(${params}) VALUES($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP)`, [
+                    uuid,
+                    userId,
+                    JSON.stringify(given.tags ?? []),
+                    given.alias,
+                    given.displayName,
+                    given.introduction,
+                ]);
+            } catch (error) {
+                console.log(error);
+                return;
+            }
 
             response.writeHead(200, {"content-type": "applization/json"});
             response.end(JSON.stringify({id: uuid}));
