@@ -3,10 +3,10 @@ import { API } from "./api";
 
 export type UserProfileStatusListener = StatusListener<UserProfileStatus>;
 export enum UserProfileStatus {
-    NONE,
-    LOADING,
-    LOADED,
-    ERROR
+    NONE = "none",
+    LOADING = "loading",
+    LOADED = "loaded",
+    ERROR = "error"
 }
 
 export class UserProfile {
@@ -24,7 +24,7 @@ export class UserProfile {
     }
     set status(newStatus: UserProfileStatus) {
         if (this._status != newStatus) {
-            this.notifyStatusListeners(newStatus);
+            this.notifyStatusListeners(this._status = newStatus);
         }
     }
 

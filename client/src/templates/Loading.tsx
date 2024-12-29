@@ -3,7 +3,7 @@ import { Animation, AnimationStatus, Curve } from "animatable-js";
 import { useEffect, useRef } from "preact/hooks";
 
 export namespace Loading {
-    export function Circle({size}: {size: string}) {
+    export function Circle({size, thickness}: {size: string, thickness?: number}) {
         const animation1Ref = useRef(new Animation(1000, Curve.Ease));
         const animation2Ref = useRef(new Animation(1000, Curve.Ease));
         const animation3Ref = useRef(new Animation(1500));
@@ -48,7 +48,7 @@ export namespace Loading {
                     const width = ctx.canvas.width;
                     const height = ctx.canvas.height;
                     const size = Math.max(width, height);
-                    const lineWidth = 5;
+                    const lineWidth = thickness ?? 5;
                     const lineColor = getComputedStyle(document.body).getPropertyValue("--foreground");
 
                     ctx.save();

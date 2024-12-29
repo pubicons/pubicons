@@ -15,6 +15,8 @@ import { Profile } from "../../templates/Profile";
 import { Template } from "../../templates/Template";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { MathUtil } from "../../components/math";
+import { Redner } from "../../templates/Render";
+import { useUser } from "../../hooks/useUser";
 
 export function Body() {
     return (
@@ -46,6 +48,7 @@ namespace Header {
 
     /** The area contains about search and the user profile components. */
     function TopArea() {
+        const [_, myProfile] = useUser();
         return (
             <Row align="center">
                 <Row width="100%" align="center" gap="var(--padding-sm)">
@@ -53,13 +56,17 @@ namespace Header {
                     <SearchVoiceButton />
                 </Row>
                 <Row width="max-content" flexShrink="0">
-                    <Button type="secondary" text="Sign Out" icon={SignOutIcon} onTap={() => {}} />
+                    <Redner.SignInOnly>
+                        <Button type="secondary" text="Sign Out" icon={SignOutIcon} onTap={() => {}} />
+                    </Redner.SignInOnly>
                     <Template.ThemeSwitch />
-                    <TouchRipple onTap={() => {}}>
-                        <Box padding="var(--padding-sm)" borderRadius="1e10px">
-                            <Profile.Default color="rgb(150, 150, 232)" name="D" size={32} />
-                        </Box>
-                    </TouchRipple>
+                    <Redner.SignInOnly>
+                        <TouchRipple onTap={() => {}}>
+                            <Box padding="var(--padding-sm)" borderRadius="1e10px">
+                                <Profile.With profile={myProfile} size={32} />
+                            </Box>
+                        </TouchRipple>
+                    </Redner.SignInOnly>
                 </Row>
             </Row>
         )

@@ -7,10 +7,15 @@ import { l10n } from "../localization/localization";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { Template } from "../templates/Template";
 import { Button } from "../templates/Button";
+import { User } from "../components/user";
+import { useUser } from "../hooks/useUser";
+import { Profile } from "../templates/Profile";
+import { TouchRipple } from "web-touch-ripple/jsx";
 
 export function LandingPage() {
+    const [_, myProfile] = useUser();
     const highlightRef = useRef<HTMLDivElement>(null);
-    
+
     useEffect(() => {
         // Delay by the page transition animation duration.
         setTimeout(() => {
@@ -40,8 +45,20 @@ export function LandingPage() {
                     </Row>
                     <Row align="centerRight">
                         <Template.ThemeSwitch />
-                        <Button type="primary" text={l10n["sign-in"]["title"]} onTap={() => RouterBinding.instance.push("/sign-in")} />
-                        <Button type="secondary" text={l10n["sign-up"]["title"]} onTap={() => RouterBinding.instance.push("/sign-up")} />
+                        {
+                            User.isOffline
+                            ? <>
+                                <Button type="primary" text={l10n["sign-in"]["title"]} onTap={() => RouterBinding.instance.push("/sign-in")} />
+                                <Button type="secondary" text={l10n["sign-up"]["title"]} onTap={() => RouterBinding.instance.push("/sign-up")} />
+                              </>
+                            : <>
+                                <TouchRipple onTap={() => {}}>
+                                    <Box padding="var(--padding-sm)" borderRadius="1e10px">
+                                        <Profile.With profile={myProfile} size={32} />
+                                    </Box>
+                                </TouchRipple>
+                              </>
+                        }
                     </Row>
                 </Row>
                 <Column gap="15px" align="center" margin="100px 0px">
