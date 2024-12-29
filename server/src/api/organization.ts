@@ -48,16 +48,20 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
             }
 
             const uuid = UUID.v4();
-            const params = `"id", "masterId", "alias", "displayName", "introduction", "createdAt"`;
-            await PG_CLIENT.query(`INSERT INTO "Organizations"(${params}) VALUES($1, $2, $3, $4, $5, CURRENT_TIMESTAMP)`, [
-                uuid,
-                userId,
-                given.alias,
-                given.displayName,
-                given.introduction
-            ]);
+            const params = `"id", "ownerId", "alias", "displayName", "introduction", "createdAt"`;
+            try {
+                await PG_CLIENT.query(`INSERT INTO "Organizations"(${params}) VALUES($1, $2, $3, $4, $5, CURRENT_TIMESTAMP)`, [
+                    uuid,
+                    userId,
+                    given.alias,
+                    given.displayName,
+                    given.introduction
+                ]);
+            } catch (error) {
+                console.log(error);
+            }
 
-            response.writeHead(200);
+            response.writeHead(200, {"content-type": "applization/json"});
             response.end(JSON.stringify({id: uuid}));
         } else {
             response.end(APIException.MISSING_REQUEST_FORMAT);
