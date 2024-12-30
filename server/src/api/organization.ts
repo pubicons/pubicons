@@ -12,10 +12,12 @@ interface OrganizationPostReqeust {
     tags: string[];
 }
 
+/** Signature for the type about the post request that is nullable all properties setted. */
+type OrganizationPatchRequest = Partial<OrganizationPostReqeust>
+
 enum OrganizationException {
     ALREADY_EXISTS_ALIAS = "already_exists_alias",
     INVALID_ALIAS_FORMAT = "invalid_alias_format",
-    INVALID_TAGS_FORMAT = "invalid_tags_format",
     INVALID_UUID = "invalid_uuid",
     INVALID_ALIAS = "invalid_alias"
 }
@@ -42,7 +44,7 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
 
             if (given.tags && !Test.isArray(given.tags, "number")) {
                 response.writeHead(400);
-                response.end(OrganizationException.INVALID_TAGS_FORMAT);
+                response.end(APIException.INVALID_REQUEST_FORMAT);
                 return;
             }
 
@@ -79,6 +81,76 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
             response.end(APIException.MISSING_REQUEST_FORMAT);
         }
     },
+    patch: async (request, response, body) => {
+        const params = PathUtil.toUrl(request.url!).searchParams;
+        const alias = params.get("alias");
+        const uuid = params.get("uuid");
+        if (uuid || alias) {
+            const given = HTTPUtil.parseRequest<OrganizationPatchRequest>(body, response);
+            if (!given) return;
+
+            if (!given.alias
+             && !given.displayName
+             && !given.introduction
+             && !given.tags) {
+                response.writeHead(400);
+                response.end(APIException.MISSING_REQUEST_FORMAT);
+                return;
+            }
+
+            if (given.tags && !Test.isArray(given.tags!, "number")) {
+                response.end(APIException.INVALID_REQUEST_FORMAT);
+                return;
+            }
+
+            const targets: {key: string, value: string, count: number}[] = [];
+            let itemCount = 0;
+
+            if (given.alias) {
+                // Verify that an alias already given exists.
+                const result = await PG_CLIENT.query(`SELECT "id" FROM "Organizations" WHERE "alias" = $1 LIMIT 1`, [
+                    given.alias
+                ]);
+
+                if (result.rowCount != null
+                 || result.rowCount != 0) {
+                    response.writeHead(409);
+                    response.end(OrganizationException.ALREADY_EXISTS_ALIAS);
+                    return;
+                }
+
+                itemCount += 1;
+                targets.push({key: "alias", value: given.alias, count: itemCount});
+            }
+            if (given.displayName) {
+                itemCount += 1;
+                targets.push({key: "displayName", value: given.displayName, count: itemCount});
+            }
+            if (given.introduction) {
+                itemCount += 1;
+                targets.push({key: "introduction", value: given.introduction, count: itemCount});
+            }
+            if (given.tags) {
+                itemCount += 1;
+                targets.push({key: "tags", value: JSON.stringify(given.tags), count: itemCount});
+            }
+
+            const params = targets.map(e => `"${e.key}" = \$${e.count}`).join(", ");
+            const values = targets.map(e => e.value);
+            const result = uuid
+                await PG_CLIENT.query(`UPDATE "Organizations" SET ${params} WHERE "id" = \$${itemCount + 1}`, [...values, uuid]);
+                await PG_CLIENT.query(`UPDATE "Organizations" SET ${params} WHERE "alias" = \$${itemCount + 1}`, [...values, alias]);
+
+            response.writeHead(200, {"content-type": "application/json"});
+            response.end(JSON.stringify({
+                patchedCount: itemCount,
+                patchedItems: targets.map(e => e.key)
+            }));
+        } else {
+            response.writeHead(400);
+            response.end(APIException.MISSING_REQUEST_FORMAT);
+        }
+    },
     get: async (request, response, _) => {
         const params = PathUtil.toUrl(request.url!).searchParams;
         const alias = params.get("alias");
@@ -86,6 +158,7 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
         if (uuid || alias) {
             const params = `
                 jsonb_array_length(a."stars") AS "starsCount",
+                a."tags",
                 a."displayName",
                 a."introduction",
                 a."profileColor",
