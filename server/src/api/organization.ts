@@ -64,19 +64,14 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
 
             const uuid = UUID.v4();
             const params = `"id", "ownerId", "tags", "alias", "displayName", "introduction", "createdAt"`;
-            try {
-                await PG_CLIENT.query(`INSERT INTO "Organizations"(${params}) VALUES($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP)`, [
-                    uuid,
-                    userId,
-                    JSON.stringify(given.tags ?? []),
-                    given.alias,
-                    given.displayName,
-                    given.introduction,
-                ]);
-            } catch (error) {
-                console.log(error);
-                return;
-            }
+            await PG_CLIENT.query(`INSERT INTO "Organizations"(${params}) VALUES($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP)`, [
+                uuid,
+                userId,
+                JSON.stringify(given.tags ?? []),
+                given.alias,
+                given.displayName,
+                given.introduction,
+            ]);
 
             response.writeHead(200, {"content-type": "applization/json"});
             response.end(JSON.stringify({id: uuid}));
@@ -85,13 +80,20 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
         }
     },
     patch: async (request, response, body) => {
+        // Because it's an authentication-only request.
+        const userId = await AuthUtil.userIdOf(request);
+        if (!userId) {
+            response.writeHead(401);
+            response.end();
+            return;
+        }
+
         const params = PathUtil.toUrl(request.url!).searchParams;
         const alias = params.get("alias");
         const uuid = params.get("uuid");
         if (uuid || alias) {
             const given = HTTPUtil.parseRequest<OrganizationPatchRequest>(body, response);
             if (!given) return;
-
             if (!given.alias
              && !given.displayName
              && !given.introduction
@@ -109,8 +111,27 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
                 return;
             }
 
+            const ownerIdResult = uuid
+                ? await PG_CLIENT.query(`SELECT "ownerId" FROM "Organizations" WHERE "id" = $1 LIMIT 1`, [uuid])
+                : await PG_CLIENT.query(`SELECT "ownerId" FROM "Organizations" WHERE "alias" = $1 LIMIT 1`, [alias]);
+
+            if (ownerIdResult.rowCount == null
+             || ownerIdResult.rowCount == 0) {
+                response.writeHead(400);
+                response.end(uuid ? OrganizationException.INVALID_UUID : OrganizationException.INVALID_ALIAS);
+                return;
+            }
+
+            const ownerId = ownerIdResult.rows[0].ownerId;
             const targets: {key: string, value: string, count: number}[] = [];
             let itemCount = 0;
+
+            // When the insufficient permissions about a given organization.
+            if (ownerId != userId) {
+                response.writeHead(403);
+                response.end();
+                return;
+            }
 
             if (given.alias) {
                 // Verify that an alias already given exists.
