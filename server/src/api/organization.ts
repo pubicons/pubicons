@@ -35,7 +35,10 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
         }
 
         // The validation checking for given request.
-        if (given.alias && given.alias.length < APILength.alias && given.displayName) {
+        if (given.alias
+         && given.alias.length < APILength.alias
+         && given.displayName
+         && given.displayName.length < APILength.displayName) {
             if (!Test.isAlias(given.alias)) {
                 response.writeHead(400);
                 response.end(OrganizationException.INVALID_ALIAS_FORMAT);
@@ -98,7 +101,10 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
                 return;
             }
 
-            if (given.tags && !Test.isArray(given.tags!, "number")) {
+            if (given.tags && !Test.isArray(given.tags!, "number")
+             || given.alias && given.alias.length > APILength.alias
+             || given.displayName && given.displayName.length > APILength.displayName) {
+                response.writeHead(400);
                 response.end(APIException.INVALID_REQUEST_FORMAT);
                 return;
             }
