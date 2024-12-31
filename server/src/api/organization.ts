@@ -126,7 +126,7 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
             const targets: {key: string, value: string, count: number}[] = [];
             let itemCount = 0;
 
-            // When the insufficient permissions about a given organization.
+            // When a user has insufficient permissions to modify a given organization.
             if (ownerId != userId) {
                 response.writeHead(403);
                 response.end();
@@ -173,6 +173,51 @@ export const ORGANIZATION_HTTP_HANDLER = new HTTPHandler({
                 patchedCount: itemCount,
                 patchedItems: targets.map(e => e.key)
             }));
+        } else {
+            response.writeHead(400);
+            response.end(APIException.MISSING_REQUEST_FORMAT);
+        }
+    },
+    delete: async (request, response) => {
+        // Because it's an authentication-only request.
+        const userId = await AuthUtil.userIdOf(request);
+        if (!userId) {
+            response.writeHead(401);
+            response.end();
+            return;
+        }
+
+        const params = PathUtil.toUrl(request.url!).searchParams;
+        const alias = params.get("alias");
+        const uuid = params.get("uuid");
+        if (alias || uuid) {
+            const ownerIdResult = uuid
+                ? await PG_CLIENT.query(`SELECT "ownerId" FROM "Organizations" WHERE "id" = $1 LIMIT 1`, [uuid])
+                : await PG_CLIENT.query(`SELECT "ownerId" FROM "Organizations" WHERE "alias" = $1 LIMIT 1`, [alias]);
+
+            if (ownerIdResult.rowCount == null
+             || ownerIdResult.rowCount == 0) {
+                response.writeHead(400);
+                response.end(uuid ? OrganizationException.INVALID_UUID : OrganizationException.INVALID_ALIAS);
+                return;
+            }
+
+            const ownerId = ownerIdResult.rows[0].ownerId;
+
+            // When a user has insufficient permissions to delete a given organization.
+            if (ownerId != userId) {
+                response.writeHead(403);
+                response.end();
+                return;
+            }
+
+            const currentTime = new Date().toISOString();
+            const result = uuid
+                ? await PG_CLIENT.query(`UPDATE "Organizations" SET "deletedAt" = $1 WHERE "id" = $2`, [currentTime, uuid])
+                : await PG_CLIENT.query(`UPDATE "Organizations" SET "deletedAt" = $1 WHERE "alias" = $2`, [currentTime, alias]);
+
+            response.writeHead(200);
+            response.end(JSON.stringify({deletedAt: currentTime}));
         } else {
             response.writeHead(400);
             response.end(APIException.MISSING_REQUEST_FORMAT);
