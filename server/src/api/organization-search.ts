@@ -49,7 +49,7 @@ export const ORGANIZATION_SEARCH_HTTP_HANDLER = new HTTPHandler({
                 a."createdAt",
                 a."updatedAt"
             `;
-            const querys = `LEFT JOIN "Subscriptions" b ON a."id" = b."orgzId"`;
+            const querys = `LEFT JOIN "Subscriptions" b ON a."id" = b."orgzId" WHERE "deletedAt" IS NULL`;
             const offset = parseInt(count) * PAGE_SIZE;
             const result = await PG_CLIENT.query(
                 `SELECT ${params} FROM "Organizations" a ${querys} ${orderQuery} LIMIT $1 OFFSET $2`,
