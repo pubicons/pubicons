@@ -26,6 +26,7 @@ export namespace API {
     export interface Organization {
         id: string;
         ownerId: string;
+        tags: number[];
         alias: string;
         displayName: string;
         introduction: string;
