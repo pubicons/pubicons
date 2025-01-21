@@ -6,4 +6,11 @@
 </div>
 
 > [!NOTE]
-> > Sorry, i'm developing about this project (2024-11-07).
+> > Sorry, i'm developing about this project yet (2024-11-07).
+
+### Using The Language And Skill
+![typescript](https://github.com/user-attachments/assets/e919ec35-eff1-4acf-a96a-279934aed0c2)
+![docker](https://github.com/user-attachments/assets/eaf1b78e-9ed6-4715-8b5c-b88feccc3514)
+![liquibase](https://github.com/user-attachments/assets/33cd7dcb-03e8-4dda-9a4e-fba3a9c28348)
+![react](https://github.com/user-attachments/assets/317957ed-1d2f-41fe-88c9-88162ad224fd)
+![webpack](https://github.com/user-attachments/assets/5a6e1170-0e85-4503-967b-0015486a25c2)
