@@ -28,8 +28,8 @@ export function App() {
             <Router>
                 <Route path="/" component={LandingPage} />
                 <Route path="/app" component={SwitchPage} />
-                <Route path="/sign-in" component={SignInPage} />
-                <Route path="/sign-up" component={SignUpPage} />
+                <Route path="/sign-in" component={SignInPage} keepalive={false} />
+                <Route path="/sign-up" component={SignUpPage} keepalive={false} />
                 <Route path="" component={NotFoundPage} default={true} />
             </Router>
         </AppContext.Provider>

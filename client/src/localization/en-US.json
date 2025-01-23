@@ -22,12 +22,28 @@
         "with_github": "Sign In with GitHub"
     },
     "sign-up": {
-        "title": "회원가입",
+        "title": "Sign Up",
         "info_description": "Enter the user information you want to create.",
         "auth_description": "Enter the emailed authentication number.",
         "already_exists_email": "The account with this email already exists.",
         "already_exists_alias": "The account with this alias already exists.",
         "invalid_uuid": "User authentication has expired.",
         "invalid_numbers": "A given auth-numbers is invalid"
+    },
+    "sign-out": "Sign Out",
+    "app": {
+        "home": "Home",
+        "navigation": "Navigation",
+        "community": "Community",
+        "user": "User",
+        "filter": "Filter",
+        "all": "All",
+        "vector": "Vector",
+        "image": "Image",
+        "close": "Close",
+        "no_result": {
+            "title": "No search results",
+            "description": "Search results do not exist."
+        }
     }
 }

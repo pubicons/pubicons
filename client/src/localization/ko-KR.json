@@ -29,5 +29,21 @@
         "already_exists_alias": "주어진 별칭에 해당하는 계정이 이미 존재합니다.",
         "invalid_uuid": "사용자 인증이 만료되었습니다.",
         "invalid_numbers": "주어진 인증 번호가 유효하지 않습니다."
+    },
+    "sign-out": "로그아웃",
+    "app": {
+        "home": "홈",
+        "navigation": "탐색",
+        "community": "커뮤니티",
+        "user": "사용자",
+        "filter": "필터",
+        "all": "모두",
+        "vector": "백터",
+        "image": "이미지",
+        "close": "닫기",
+        "no_search_results": {
+            "title": "검색 결과 없음",
+            "description": "주어진 조건에 해당하는 검색 결과가 없습니다."
+        }
     }
 }

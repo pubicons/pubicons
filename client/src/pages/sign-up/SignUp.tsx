@@ -1,4 +1,4 @@
-import { AnimatedSize, AnimatedTransition, Column, Row, Text } from "@web-package/react-widgets";
+import { AnimatedSize, AnimatedTransition, Column, Text } from "@web-package/react-widgets";
 import { l10n } from "../../localization/localization";
 import { Template } from "../../templates/Template";
 import { Input } from "../../templates/Input";
@@ -12,6 +12,7 @@ import { User } from "../../components/user";
 
 enum SignUpStatus {
     INFO,
+    PASS,
     AUTH
 }
 
@@ -22,13 +23,23 @@ export function SignUpPage() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [authNums, setAuthNums] = useState<string>("");
+    const [checkPassword, setCheckPassword] = useState<string>("");
     const [isLoading, setLoading] = useState<boolean>(false);
     const authIdRef = useRef<string>(null);
     const authId = authIdRef.current; // Authorization UUID
 
-    const isNextable = Test.isEmail(email) && alias != "" && password != "";
+    const isNextable = (Test.isEmail(email) && (alias != "" && Test.isAlias(alias)) && password != "")
+                    && (status == SignUpStatus.PASS ? password == checkPassword : true);
+
     const onNextable = async () => {
         if (status == SignUpStatus.INFO) {
+            setStatus(SignUpStatus.PASS);
+        }
+
+        if (status == SignUpStatus.PASS) {
+            // Verify that it is the same as the password.
+            if (password != checkPassword) return;
+
             setLoading(true);
             const result = await fetch("/api/sign-up", {method: "POST", body: JSON.stringify({
                 email: email,
@@ -87,7 +98,7 @@ export function SignUpPage() {
                     <Column>
                         <Text.h1>{l10n["sign-up"]["title"]}</Text.h1>
                         {
-                            status == SignUpStatus.INFO
+                            status == SignUpStatus.INFO || status == SignUpStatus.PASS
                                 ? <span>{l10n["sign-up"]["info_description"]}</span>
                                 : <span>{l10n["sign-up"]["auth_description"]}</span>
                         }
@@ -99,19 +110,14 @@ export function SignUpPage() {
                             fadeOut: {from: {transform: "translateX(0px)" , opacity: "1"}, to: {transform: "translateX(-100%)", opacity: "0"}}
                         }}>
                             <Column gap="var(--padding-sm)">
-                                {
-                                    status == SignUpStatus.INFO
-                                        ?
-                                        <>
-                                            <Input.Text key="alias" onChange={setAlias} type="" design="form" placeholder={l10n["alias"]} />
-                                            <Input.Text key="email" onChange={setEmail} type="email" design="form" placeholder={l10n["email"]} />
-                                            <Input.Text key="password" onChange={setPassword} type="password" design="form" placeholder={l10n["password"]} />
-                                        </>
-                                        :
-                                        <>
-                                            <Input.Text key="auth_numbers" onChange={setAuthNums} design="form" placeholder={l10n["auth_numbers"]} />
-                                        </>
-                                }
+                                <Inputs
+                                    status={status}
+                                    setAlias={setAlias}
+                                    setEmail={setEmail}
+                                    setPassword={setPassword}
+                                    setAuthNums={setAuthNums}
+                                    setCheckPassword={setCheckPassword}
+                                />
                             </Column>
                         </AnimatedTransition>
                     </AnimatedSize>
@@ -122,4 +128,31 @@ export function SignUpPage() {
             </Template.FormWrapper>
         </>
     )
+}
+
+function Inputs({status, setAlias, setEmail, setPassword, setCheckPassword, setAuthNums}: {
+    status: SignUpStatus;
+    setAlias: (value: string) => void;
+    setEmail: (value: string) => void;
+    setPassword: (value: string) => void;
+    setAuthNums: (value: string) => void;
+    setCheckPassword: (value: string) => void;
+}) {
+    if (status == SignUpStatus.INFO) {
+        return (
+            <>
+                <Input.Text key="alias" onChange={setAlias} type="" design="form" placeholder={l10n["alias"]} />
+                <Input.Text key="email" onChange={setEmail} type="email" design="form" placeholder={l10n["email"]} />
+                <Input.Text key="password" onChange={setPassword} type="password" design="form" placeholder={l10n["password"]} />
+            </>
+        )
+    }
+
+    if (status == SignUpStatus.PASS) {
+        return <Input.Text key="password" onChange={setCheckPassword} type="password" design="form" placeholder={l10n["password"]} />
+    }
+
+    if (status == SignUpStatus.AUTH) {
+        return <Input.Text key="auth_numbers" onChange={setAuthNums} design="form" placeholder={l10n["auth_numbers"]} />;
+    }
 }

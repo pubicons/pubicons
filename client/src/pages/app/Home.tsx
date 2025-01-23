@@ -2,13 +2,13 @@ import ControlIcon from "../../assets/svgs/control.svg";
 import SignOutIcon from "../../assets/svgs/sign_out.svg";
 import HistoryIcon from "../../assets/svgs/history.svg";
 import SearchIcon from "../../assets/svgs/search.svg";
-import GithubIcon from "../../assets/svgs/github.svg";
+import FolderIcon from "../../assets/svgs/folder.svg";
 import MikeIcon from "../../assets/svgs/mike.svg";
 
 /** @ts-ignore */
 import DevTtangkong from "../../assets/images/dev_ttangkong.png";
 
-import { AnimatedTransition, Box, Column, Constraint, ConstraintBuilder, Grid, Row, Scrollable, Text } from "@web-package/react-widgets";
+import { AnimatedTransition, Box, Column, Constraint, ConstraintBuilder, Grid, Row, Scrollable, TabNavigation, Text } from "@web-package/react-widgets";
 import { TouchRipple } from "web-touch-ripple/jsx";
 import { Button } from "../../templates/Button";
 import { Profile } from "../../templates/Profile";
@@ -19,16 +19,17 @@ import { Render } from "../../templates/Render";
 import { useUser } from "../../hooks/useUser";
 import { API } from "../../components/api";
 import { Util } from "../../components/util";
+import { ReactNode } from "react-dom/src";
+import { l10n } from "../../localization/localization";
 
 export function Body() {
     return (
         <>
-            <title>PUBICONS - Home</title>
+            <title>PUBICONS - {l10n["app"]["home"]}</title>
             <Column size="100%">
                 <Header.Body />
                 <Scrollable.Vertical>
                     <Column maxWidth="var(--content-max-width)" margin="auto">
-                        <Content.Banner />
                         <Render.SignInOnly>
                             <Content.History.Body />
                         </Render.SignInOnly>
@@ -61,7 +62,7 @@ namespace Header {
                 </Row>
                 <Row width="max-content" flexShrink="0">
                     <Render.SignInOnly>
-                        <Button type="secondary" text="Sign Out" icon={SignOutIcon} onTap={() => {}} />
+                        <Button type="secondary" text={l10n["sign-out"]} icon={SignOutIcon} onTap={() => {}} />
                     </Render.SignInOnly>
                     <Template.ThemeSwitch />
                     <Render.SignInOnly>
@@ -119,7 +120,7 @@ namespace Header {
                         <Category title="Colorful" selected={false} />
                     </Row>
                 </Scrollable.Horizontal>
-                <Button text="Filter" type="primary" icon={ControlIcon} onTap={() => {}} />
+                <Button text={l10n["app"]["filter"]} type="primary" icon={ControlIcon} onTap={() => {}} />
             </Row>
         )
     }
@@ -149,38 +150,51 @@ namespace Content {
         }, []);
 
         return (
-            <ConstraintBuilder
-                usememo={false}
-                constraints={[
-                    new Constraint(1600, Infinity, 4),
-                    new Constraint(1200, 1600, 3),
-                    new Constraint(700, 1200, 2),
-                    new Constraint(-Infinity, 700, 1)
-                ]}
-                builder={(rowCount) => {
-                    let children;
+            <Column paddingAndGap="var(--padding-df)">
+                <TabNavigation.Horizontal index={0} duration="0.5s" style={{backgroundColor: "var(--foreground)"}}>
+                    <Box padding="var(--padding-df)">{l10n["app"]["all"]}</Box>
+                    <Box padding="var(--padding-df)" color="var(--foreground2)">{l10n["app"]["vector"]}</Box>
+                    <Box padding="var(--padding-df)" color="var(--foreground2)">{l10n["app"]["image"]}</Box>
+                </TabNavigation.Horizontal>
+                <AnimatedTransition value={isLoading} animation={{
+                    duration: "0.5s",
+                    fadeIn : {from: {opacity: 0}, to: {opacity: 1}},
+                    fadeOut: {from: {opacity: 1}, to: {opacity: 0}}
+                }}>
+                    <ConstraintBuilder
+                        usememo={false}
+                        constraints={[
+                            new Constraint(1600, Infinity, 4),
+                            new Constraint(1200, 1600, 3),
+                            new Constraint(700, 1200, 2),
+                            new Constraint(-Infinity, 700, 1)
+                        ]}
+                        builder={(rowCount) => {
+                            let children: ReactNode;
 
-                    if (isLoading) {
-                        children = <>
-                            {Array.from({length: 30}).map(() => <PlaceHolder />)}
-                        </>
-                    } else {
-                        children = <>
-                            {items.map(item => <Item data={item} />)}
-                        </>
-                    }
+                            if (isLoading) {
+                                children = Array.from({length: 30}).map(() => <PlaceHolder />);
+                            } else {
+                                children = items.map(item => <Item data={item} />);
+                            }
 
-                    return (
-                        <AnimatedTransition value={isLoading} animation={{
-                            duration: "0.5s",
-                            fadeIn : {from: {opacity: 0}, to: {opacity: 1}},
-                            fadeOut: {from: {opacity: 1}, to: {opacity: 0}}
-                        }}>
-                            <Grid rowCount={rowCount} padding="var(--padding-df)" gap='var(--padding-df)' children={children} />
-                        </AnimatedTransition>
-                    )
-                }}
-            />
+                            if (status == Status.LOADED && items.length == 0) {
+                                return (
+                                    <Column align="center" gap="var(--padding-sm)">
+                                        <FolderIcon width="64px" height="64px" />
+                                        <Column align="center" gap="3px">
+                                            <Text.h3>{l10n["app"]["no_search_results"]["title"]}</Text.h3>
+                                            <Text.span>{l10n["app"]["no_search_results"]["description"]}</Text.span>
+                                        </Column>
+                                    </Column>
+                                )
+                            }
+
+                            return <Grid rowCount={rowCount} gap="var(--padding-df)" children={children} />
+                        }}
+                    />
+                </AnimatedTransition>
+            </Column>
         )
     }
 
@@ -244,35 +258,6 @@ namespace Content {
                     <Box className="placeholder" width={`${lowerRef.current}%`} height="30px" backgroundColor="var(--rearground)" borderRadius="10px" />
                 </Column>
             </Row>
-        )
-    }
-
-    export function Banner() {
-        const goToGithub = () => {
-            window.open("https://github.com/MTtankkeo");
-        }
-
-        return (
-            <Box padding="var(--padding-df)" maxWidth="1000px" margin="auto">
-                <Row
-                    width="100%"
-                    height="200px"
-                    boxSizing="border-box"
-                    backgroundImage="linear-gradient(90deg, rgb(230, 200, 150), rgb(215, 120, 130))"
-                    border="3px solid rgba(220, 120, 120)"
-                    boxShadow="0px 0px 100px rgba(220, 120, 120, 0.5)"
-                    borderRadius="10px"
-                >
-                    <img src={DevTtangkong} height="100%" />
-                    <Column padding="var(--padding-df)" align="centerLeft">
-                        <Text.h3 color="black" fontSize="32px" maxLine={1}>DEV TTANGKONG</Text.h3>
-                        <Text.span color="rgb(50, 50, 50)" maxLine={3} fontSize="16px">I'm always striving to enhance user experiences as a front-end developer, And studying back-end.</Text.span>
-                        <Row marginTop="var(--padding-df)">
-                            <Button type="primary" text="Go to Github" icon={GithubIcon} onTap={goToGithub} />
-                        </Row>
-                    </Column>
-                </Row>
-            </Box>
         )
     }
 

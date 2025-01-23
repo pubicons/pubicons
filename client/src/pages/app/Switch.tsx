@@ -16,6 +16,7 @@ import { SVGJSX } from "../../types/types";
 import { TouchRipple } from "web-touch-ripple/jsx";
 import { useState } from "preact/hooks";
 import { Route, Router } from "@web-package/react-widgets-router";
+import { l10n } from "../../localization/localization";
 
 export function SwitchPage() {
     return (
@@ -45,13 +46,13 @@ namespace NavigationSideBar {
                     </AnimatedFoldable.Horizontal>
                 </Row>
                 <Scrollable.Vertical>
-                    <SwitchItem active={true} normalIcon={HomeIcon} activeIcon={HomeFilledIcon} text="Home" folded={isFold} />
-                    <SwitchItem active={false} normalIcon={CompassIcon} activeIcon={CompassFilledIcon} text="Navigation" folded={isFold} />
-                    <SwitchItem active={false} normalIcon={CommunityIcon} activeIcon={CommunityFilledIcon} text="Community" folded={isFold} />
-                    <SwitchItem active={false} normalIcon={UserIcon} activeIcon={UserFilledIcon} text="User" folded={isFold} />
+                    <SwitchItem active={true} normalIcon={HomeIcon} activeIcon={HomeFilledIcon} text={l10n["app"]["home"]} folded={isFold} />
+                    <SwitchItem active={false} normalIcon={CompassIcon} activeIcon={CompassFilledIcon} text={l10n["app"]["navigation"]} folded={isFold} />
+                    <SwitchItem active={false} normalIcon={CommunityIcon} activeIcon={CommunityFilledIcon} text={l10n["app"]["community"]} folded={isFold} />
+                    <SwitchItem active={false} normalIcon={UserIcon} activeIcon={UserFilledIcon} text={l10n["app"]["user"]} folded={isFold} />
                 </Scrollable.Vertical>
                 <Column marginBottom="var(--padding-df)">
-                    <Item icon={LeftArrowIcon} text="Close" folded={isFold} fliped={!isFold} onTap={() => setFold(!isFold)} />
+                    <Item icon={LeftArrowIcon} text={l10n["app"]["close"]} folded={isFold} fliped={!isFold} onTap={() => setFold(!isFold)} />
                 </Column>
             </Column>
         )
