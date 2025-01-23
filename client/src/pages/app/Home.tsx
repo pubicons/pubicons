@@ -29,7 +29,7 @@ export function Body() {
             <Column size="100%">
                 <Header.Body />
                 <Scrollable.Vertical>
-                    <Column maxWidth="var(--content-max-width)" margin="auto">
+                    <Column paddingAndGap="var(--padding-df)" maxWidth="var(--content-max-width)" margin="auto">
                         <Render.SignInOnly>
                             <Content.History.Body />
                         </Render.SignInOnly>
@@ -150,7 +150,7 @@ namespace Content {
         }, []);
 
         return (
-            <Column paddingAndGap="var(--padding-df)">
+            <Column gap="var(--padding-df)">
                 <TabNavigation.Horizontal index={0} duration="0.5s" style={{backgroundColor: "var(--foreground)"}}>
                     <Box padding="var(--padding-df)">{l10n["app"]["all"]}</Box>
                     <Box padding="var(--padding-df)" color="var(--foreground2)">{l10n["app"]["vector"]}</Box>
@@ -264,7 +264,7 @@ namespace Content {
     export namespace History {
         export function Body() {
             return (
-                <Column margin="var(--padding-df)" paddingAndGap="var(--padding-df)" border="1px dashed var(--background-border)" borderRadius='10px'>
+                <Column paddingAndGap="var(--padding-df)" border="1px dashed var(--background-border)" borderRadius='10px'>
                     <Row align="centerLeft" gap="var(--padding-df)">
                         <HistoryIcon width="24px" />
                         <Column>

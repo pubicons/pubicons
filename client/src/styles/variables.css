@@ -26,12 +26,12 @@
 }
 
 .dark {
-    --background: black;
-    --background-border: rgb(50, 51, 53);
-    --rearground: rgb(30, 31, 33);
-    --rearground-border: rgb(70, 71, 73);
-    --rearground-active: rgb(50, 51, 53);
-    --rearground-in-background: rgb(40, 41, 43);
+    --background: rgb(8, 10, 12);
+    --background-border: rgb(50, 52, 54);
+    --rearground: rgb(30, 32, 34);
+    --rearground-border: rgb(70, 72, 74);
+    --rearground-active: rgb(50, 52, 54);
+    --rearground-in-background: rgb(40, 42, 44);
     --foreground: white;
     --foreground2: rgb(160, 160, 160);
     --foreground3: rgb(120, 120, 120);
